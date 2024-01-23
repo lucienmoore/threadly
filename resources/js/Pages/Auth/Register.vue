@@ -11,12 +11,24 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    avatar: null,
 });
 
 const submit = () => {
+    let formData = new FormData();
+    for (let field in form) {
+        formData.append(field, form[field]);
+    }
+
     form.post(route('register'), {
+        data: formData,
         onFinish: () => form.reset('password', 'password_confirmation'),
+        forceFormData: true,
     });
+};
+
+const handleFileChange = (event) => {
+    form.avatar = event.target.files[0];
 };
 </script>
 
@@ -50,7 +62,7 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
-                    autocomplete="username"
+                    autocomplete="email"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -84,6 +96,18 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="avatar" value="Avatar" />
+                <input
+                    id="avatar"
+                    type="file"
+                    class="mt-1 block w-full"
+                    @change="handleFileChange"
+                    accept="image/*"
+                />
+                <InputError class="mt-2" :message="form.errors.avatar" />
             </div>
 
             <div class="flex items-center justify-end mt-4">

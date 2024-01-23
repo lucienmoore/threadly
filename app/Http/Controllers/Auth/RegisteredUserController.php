@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class RegisteredUserController extends Controller
 {
@@ -32,15 +33,28 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'name' => ['required', 'string', 'max:25', 'unique:users'],
+            'email' => 'required|string|lowercase|email|max:50|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'avatar' => 'nullable|mimes:jpeg,png|image',
         ]);
+
+        $avatarPath = null;
+        if ($request->hasFile('avatar')) {
+            $filename = $request->name . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $avatarPath = $request->file('avatar')->storeAs('avatars', $filename, 'public');
+            
+            $path = storage_path('app/public/' . $avatarPath);
+            if (filesize($path) > 10) { 
+                ImageOptimizer::optimize($path);
+            }
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'avatar' => $avatarPath,
         ]);
 
         event(new Registered($user));

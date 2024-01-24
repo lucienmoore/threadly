@@ -1,3 +1,3 @@
 <template>
-    <img src="../../../storage/app/public/logo/logo.svg" alt="">
+    <img src="/storage/logo/logo.svg" alt="Логотип">
 </template>

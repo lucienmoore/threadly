@@ -34,11 +34,10 @@ const handleFileChange = (event) => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
-
-        <form @submit.prevent="submit">
+        <Head title="Регистрация" />
+        <form @submit.prevent="submit" novalidate>
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Имя" />
 
                 <TextInput
                     id="name"
@@ -47,13 +46,14 @@ const handleFileChange = (event) => {
                     v-model="form.name"
                     autofocus
                     autocomplete="name"
+                    placeholder="Можно вымышленное"
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Адрес электронной почты" />
 
                 <TextInput
                     id="email"
@@ -61,13 +61,14 @@ const handleFileChange = (event) => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     autocomplete="email"
+                    placeholder="youremail@example.com"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Пароль" />
 
                 <TextInput
                     id="password"
@@ -81,7 +82,7 @@ const handleFileChange = (event) => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" value="Подтверждение пароля" />
 
                 <TextInput
                     id="password_confirmation"
@@ -95,28 +96,29 @@ const handleFileChange = (event) => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="avatar" value="Avatar" />
+                <InputLabel for="avatar" value="Отображаемый аватар" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" />
                 <input
-                    id="avatar"
-                    type="file"
-                    class="mt-1 block w-full"
-                    @change="handleFileChange"
-                    accept="image/*"
+                id="avatar"
+                type="file"
+                @change="handleFileChange"
+                accept="image/*"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-lg border border-gray-300 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:cursor-pointer file:active:bg-custom-orange-hover file:mr-4 file:py-2 file:px-4 file:rounded-r-lg file:border-0 file:font-medium file:bg-custom-orange file:text-white"
                 />
                 <InputError class="mt-2" :message="form.errors.avatar" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+            <div class="flex flex-col items-center mt-4">
+                <PrimaryButton>
+                    Зарегистрироваться
                 </PrimaryButton>
+            </div>
+            <div class="text-right mt-1">
+                <Link
+                :href="route('login')"
+                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none"
+                >
+                    Есть аккаунт?
+                </Link>
             </div>
         </form>
     </GuestLayout>

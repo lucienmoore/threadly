@@ -45,7 +45,6 @@ const handleFileChange = (event) => {
                     type="text"
                     class="mt-1 block w-full"
                     v-model="form.name"
-                    required
                     autofocus
                     autocomplete="name"
                 />
@@ -61,7 +60,6 @@ const handleFileChange = (event) => {
                     type="email"
                     class="mt-1 block w-full"
                     v-model="form.email"
-                    required
                     autocomplete="email"
                 />
 
@@ -76,7 +74,6 @@ const handleFileChange = (event) => {
                     type="password"
                     class="mt-1 block w-full"
                     v-model="form.password"
-                    required
                     autocomplete="new-password"
                 />
 
@@ -91,7 +88,6 @@ const handleFileChange = (event) => {
                     type="password"
                     class="mt-1 block w-full"
                     v-model="form.password_confirmation"
-                    required
                     autocomplete="new-password"
                 />
 

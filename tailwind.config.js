@@ -22,6 +22,9 @@ export default {
                 'custom-orange-active': '#CA5742',
                 'custom-input-focus': '#FF9D8A',
                 'custom-avatar-media': '#FD8A75',
+                'custom-bg' : '#DAE0E6',
+                'custom-bg-vote' : '#F8F9FA',
+                'custom-button' : '#1B4EF7'
             }
         },
     },

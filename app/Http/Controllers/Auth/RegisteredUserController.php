@@ -39,23 +39,25 @@ class RegisteredUserController extends Controller
             'avatar' => 'nullable|mimes:jpeg,png|image',
         ]);
 
-        $avatarPath = null;
-        if ($request->hasFile('avatar')) {
-            $filename = $request->name . '.' . $request->file('avatar')->getClientOriginalExtension();
-            $avatarPath = $request->file('avatar')->storeAs('avatars', $filename, 'public');
-            
-            $path = storage_path('app/public/' . $avatarPath);
-            if (filesize($path) > 10) { 
-                ImageOptimizer::optimize($path);
-            }
-        }
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => $avatarPath,
         ]);
+
+        $avatarPath = null;
+        if ($request->hasFile('avatar')) {
+            $filename = $user->id . '.jpg'; // Используйте ID пользователя
+            $avatarPath = $request->file('avatar')->storeAs('avatars', $filename, 'public');
+    
+            $path = storage_path('app/public/' . $avatarPath);
+            if (filesize($path) > 10) {
+                ImageOptimizer::optimize($path);
+            }
+    
+            // Обновление пользователя с новым путем аватарки
+            $user->update(['avatar' => $avatarPath]);
+        }
 
         event(new Registered($user));
 

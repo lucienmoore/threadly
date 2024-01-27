@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('community_id')->constrained();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('community_id');
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
             $table->string('title');
-            $table->string('description');
             $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->integer('votes')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -5,17 +5,22 @@
         <Link
           v-if="$page.props.auth.auth_check"
           :href="route('communities.posts.create', community.slug)"
-          class="px-3 py-2 rounded font-medium bg-custom-orange hover:bg-custom-orange-hover text-white"
-          >Создать пост</Link
+          class="px-4 py-2 rounded font-medium text-sm bg-custom-orange hover:bg-custom-orange-hover text-white"
+          >Создать тред</Link
         >
-        <PostCard
-          v-for="post in posts.data"
-          :post="post"
-          :community="community.slug"
-          :key="post.id"
-        />
-        <div class="mt-4 p-2">
-          <Pagination :links="posts.meta.links" />
+        <div v-if="posts.data.length === 0" class="w-8/12 mt-5">
+          Здесь пока что пусто...
+        </div>
+        <div v-else>
+          <PostCard
+            v-for="post in posts.data"
+            :post="post"
+            :community="community.slug"
+            :key="post.id"
+          />
+          <div class="mt-4 p-2">
+            <Pagination :links="posts.meta.links" />
+          </div>
         </div>
       </div>
       <div class="w-4/12 p-4">

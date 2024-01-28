@@ -24,6 +24,7 @@ export default {
                 'custom-avatar-media': '#FD8A75',
                 'custom-bg' : '#DAE0E6',
                 'custom-bg-vote' : '#F8F9FA',
+                'custom-blue-arrow' : '#7193FF',
                 'custom-button' : '#1B4EF7'
             }
         },

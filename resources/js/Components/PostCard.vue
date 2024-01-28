@@ -1,8 +1,8 @@
 <template>
-  <div
+  <a
+    :href="route('frontend.communities.posts.show', [community, post.slug])"
     class="
       mt-4
-      max-w-4xl
       flex
       bg-white
       rounded-lg
@@ -14,11 +14,11 @@
     <div>
       <PostVote :post="post" />
     </div>
-    <div>
+    <div class="ml-1">
       <div class="flex m-2 pt-1 text-sm">
         <Link
           :href="route('frontend.communities.show', community)"
-          class="font-semibold mr-2 hover:text-indigo-700"
+          class="font-semibold mr-2 hover:underline"
           >t/{{ community }}</Link
         >
         <div class="flex">
@@ -27,10 +27,7 @@
           {{ post.created_at }}
         </div>
       </div>
-      <Link
-        :href="route('frontend.communities.posts.show', [community, post.slug])"
-      >
-        <h5
+      <h5
           class="
             mb-2
             ml-2
@@ -39,18 +36,16 @@
             tracking-tight
             text-gray-900
             dark:text-white
-            hover:text-indigo-700
           "
         >
           {{ post.title }}
-        </h5>
-      </Link>
+      </h5>
       <p class="mb-3 ml-2 font-normal text-gray-700 dark:text-gray-400">
         {{ post.description }}
       </p>
       <div class="flex mb-2 pb-2">
         <p class="mr-4 p-2">Комментариев ({{ post.comments_count }})</p>
-        <Link
+        <!-- <Link
           :href="
             route('frontend.communities.posts.show', [community, post.slug])
           "
@@ -82,15 +77,17 @@
               clip-rule="evenodd"
             ></path>
           </svg>
-        </Link>
+        </Link> -->
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import PostVote from "./PostVote.vue";
+
+
 defineProps({
   post: Object,
   community: String,

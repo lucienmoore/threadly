@@ -14,58 +14,38 @@
             <PostVote :post="post.data" />
           </div>
           <div class="w-full">
-            <div class="flex flex-col md:flex-row justify-between ml-2 mt-2 mr-2 p-2">
+            <div class="flex flex-col gap-1 md:flex-row justify-between ml-2 mt-2 mr-2 p-2">
               <div>
                 Опубликовано пользователем
-                <span class="mx-1 text-slate-700">{{
+                <span class="text-slate-700">{{
                   post.data.name
                 }}</span>
                 {{ post.data.created_at }}
               </div>
-              <div v-if="$page.props.auth.auth_check">
-                <Link
-                  v-if="can_update"
-                  :href="
-                    route('communities.posts.edit', [
-                      community.slug,
-                      post.data.slug,
-                    ])
-                  "
-                  class="
-                    font-semibold
-                    bg-custom-button
-                    hover:bg-blue-700
-                    rounded-md
-                    text-white
-                    px-4
-                    py-2
-                    mr-2
-                  "
-                  >Редактировать</Link
-                >
-                <Link
-                  v-if="can_delete"
-                  :href="
-                    route('communities.posts.destroy', [
-                      community.slug,
-                      post.data.slug,
-                    ])
-                  "
-                  class="
-                    font-semibold
-                    bg-red-500
-                    hover:bg-red-700
-                    rounded-md
-                    text-white
-                    px-4
-                    py-2
-                  "
-                  method="delete"
-                  as="button"
-                  type="button"
-                  >Удалить</Link
-                >
+
+              <div class="flex flex-col">
+                <div v-if="can_update" @click="isMenuOpen = !isMenuOpen" class="flex cursor-pointer sm:justify-start md:justify-end">
+                ☰
               </div>
+
+              <div v-if="isMenuOpen" class="menu-content">
+                <div class="flex gap-2" v-if="$page.props.auth.auth_check">
+                  <Link
+                    v-if="can_update"
+                    :href="route('communities.posts.edit', [community.slug, post.data.slug])"
+                    class="menu-link hover:text-gray-700 transition ease-in-out duration-200">Редактировать</Link>
+                  <Link
+                    v-if="can_delete"
+                    :href="route('communities.posts.destroy', [community.slug, post.data.slug])"
+                    class="menu-link hover:text-gray-700 transition ease-in-out duration-200"
+                    method="delete"
+                    as="button"
+                    type="button">Удалить</Link>
+                </div>
+              </div>
+
+            </div>
+
             </div>
             <div class="ml-2 pl-2">
               <h1 class="font-semibold text-3xl text-black">
@@ -145,7 +125,9 @@
                   <div class="text-sm">
                     <span class="font-semibold ml-1 text-slate-700">{{
                       comment.name
-                    }}</span>
+                    }}
+                    </span>
+                    <span class="text-gray-500 text-xs"> ({{ comment.created_at }})</span>
                   </div>
                   <div class="text-slate-600 m-2 p-2">
                     {{ comment.content }}
@@ -167,11 +149,14 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { computed } from 'vue';
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import PostList from "@/Components/PostList.vue";
+
+const isMenuOpen = ref(false);
 
 const props = defineProps({
   community: Object,

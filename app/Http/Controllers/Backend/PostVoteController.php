@@ -12,14 +12,14 @@ class PostVoteController extends Controller
     public function upVote(Post $post)
     {
         $isVoted = PostVote::where('post_id', $post->id)->where('user_id', auth()->id())->first();
-
+    
         if (!is_null($isVoted)) {
             if ($isVoted->vote === -1) {
                 $isVoted->update(['vote' => 1]);
                 $post->increment('votes', 2);
-                return redirect()->back();
             } elseif ($isVoted->vote === 1) {
-                return redirect()->back();
+                $isVoted->delete();
+                $post->decrement('votes', 1);
             }
         } else {
             PostVote::create([
@@ -28,21 +28,22 @@ class PostVoteController extends Controller
                 'vote' => 1
             ]);
             $post->increment('votes', 1);
-            return redirect()->back();
         }
+    
+        return redirect()->back();
     }
 
     public function downVote(Post $post)
     {
         $isVoted = PostVote::where('post_id', $post->id)->where('user_id', auth()->id())->first();
-
+    
         if (!is_null($isVoted)) {
             if ($isVoted->vote === 1) {
                 $isVoted->update(['vote' => -1]);
                 $post->decrement('votes', 2);
-                return redirect()->back();
             } elseif ($isVoted->vote === -1) {
-                return redirect()->back();
+                $isVoted->delete();
+                $post->increment('votes', 1);
             }
         } else {
             PostVote::create([
@@ -51,7 +52,8 @@ class PostVoteController extends Controller
                 'vote' => -1
             ]);
             $post->decrement('votes', 1);
-            return redirect()->back();
         }
+    
+        return redirect()->back();
     }
 }

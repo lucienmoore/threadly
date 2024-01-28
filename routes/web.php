@@ -24,19 +24,14 @@ use App\Http\Controllers\Frontend\WelcomeController;
 //     ]);
 // });
 
+Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+
 Route::get('/t/{slug}', [FrontendCommunityController::class, 'show'])->name('frontend.communities.show');
 Route::get('/t/{community_slug}/posts/{post:slug}', [PostController::class, 'show'])->name('frontend.communities.posts.show');
 Route::post('/t/{community_slug}/posts/{post:slug}/comments', [PostCommentController::class, 'store'])->name('frontend.posts.comments');
 
 Route::group(['middleware' => ['auth', 'verified']], function (){
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-
     Route::middleware('auth')->group(function () {
-
-        Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
-
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -48,7 +43,6 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
         Route::post('/posts/{post:slug}/downVote', [PostVoteController::class, 'downVote'])->name('posts.downVote');
     });
 
-    Route::resource('/communities', CommunityController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -1,6 +1,6 @@
 <template>
   <div class="w-full bg-white shadow-md border rounded-lg">
-    <h2 class="font-semibold text-lg p-4 bg-custom-orange text-white rounded-lg">
+    <h2 class="font-semibold text-lg p-4 bg-custom-orange text-white rounded-t-lg">
       <slot name="title" />
     </h2>
     <ul role="list" class="divide-y divide-slate-300 dark:divide-slate-700 p-4">
@@ -24,7 +24,7 @@
           >
             {{ post.title }}
           </Link>
-          <div>Votes({{ post.votes }})</div>
+          <div>Рейтинг ({{ post.votes }})</div>
         </div>
       </li>
     </ul>

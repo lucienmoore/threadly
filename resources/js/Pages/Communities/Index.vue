@@ -30,7 +30,7 @@
               >
             </div>
           </div>
-          <div class="mt-8 flex flex-col">
+          <div class="mt-4 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div
                 class="
@@ -155,7 +155,9 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div class="m-2 p-2">
+                  <div v-if="communities.data.length === 0" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                  </div>
+                  <div v-else class="m-2 p-2">
                     <Pagination :links="communities.links" />
                   </div>
                 </div>

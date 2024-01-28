@@ -159,12 +159,15 @@ const showingNavigationDropdown = ref(false);
             class="sm:hidden"
         >
           <div class="pt-2 pb-3 space-y-1">
-              <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                  Главная
+              <ResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
+                  Треды
               </ResponsiveNavLink>
           </div>
             <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="pt-4 pb-3 border-t border-gray-200">
+              <ResponsiveNavLink :href="route('login')" :active="route().current('login')">
+                  Войти
+              </ResponsiveNavLink>
                 <div class="px-4">
                     <div class="font-medium text-base text-gray-800">
                     </div>
@@ -182,7 +185,7 @@ const showingNavigationDropdown = ref(false);
       </header>
 
       <!-- Page Content -->
-      <main class="max-w-7xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
+      <main class="max-w-5xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
         <slot />
       </main>
     </div>

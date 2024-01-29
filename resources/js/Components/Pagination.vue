@@ -29,10 +29,9 @@
           leading-4
           border
           rounded
-          hover:bg-white
-          focus:text-indigo-500 focus:border-indigo-500
+          hover:bg-custom-pagination-bg
         "
-        :class="{ 'bg-white': link.active }"
+        :class="{ 'bg-custom-pagination-bg': link.active }"
       ></Link>
     </template>
   </div>

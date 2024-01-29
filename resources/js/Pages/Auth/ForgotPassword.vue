@@ -25,15 +25,15 @@ const submit = () => {
     <GuestLayout>
         <Head title="Forgot Password" />
 
-        <div class="mb-4 mt-3 text-sm text-gray-600">
+        <div class="mb-4 mt-3 text-sm text-gray-600 mx-auto max-w-lg">
             Забыли пароль? Напишите адрес электронной почты, и мы пришлём вам ссылку для сброса пароля.
         </div>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 mx-auto max-w-lg">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" novalidate>
+        <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
             <div>
                 <InputLabel for="email" value="Почта" />
 

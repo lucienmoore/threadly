@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col h-full w-10 p-2 pt-3 bg-custom-bg-vote text-center rounded-l-lg"
+    class="flex flex-col h-full w-10 p-2 pt-2 bg-custom-bg-vote text-center rounded-l-lg"
   >
     <UpVoteLink
       :slug="post.slug"

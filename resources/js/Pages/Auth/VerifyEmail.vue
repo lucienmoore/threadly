@@ -23,15 +23,15 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
     <GuestLayout>
         <Head title="Email Verification" />
 
-        <div class="mb-4 mt-3 text-sm text-gray-600">
+        <div class="mb-4 mt-3 text-sm text-gray-600 mx-auto max-w-lg">
             Благодарим за регистрацию! Прежде чем приступить к работе, подтвердите адрес электронной почты, перейдя по ссылке, которую мы только что отправили. Если письмо не пришло, нажмите на кнопку для повторной отправки.
         </div>
 
-        <div class="mb-4 font-medium text-sm text-green-600" v-if="verificationLinkSent">
+        <div class="mb-4 font-medium text-sm text-green-600 mx-auto max-w-lg" v-if="verificationLinkSent">
             Новая ссылка для подтверждения была отправлена на указанный вами адрес электронной почты.
         </div>
 
-        <form @submit.prevent="submit">
+        <form class="mx-auto max-w-lg" @submit.prevent="submit">
             <div class="mt-4 flex flex-col аitems-center justify-between">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Отправить снова

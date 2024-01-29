@@ -2,14 +2,14 @@
   <guest-layout>
     <section class="flex flex-col gap-2 md:flex-row m-2 p-2">
       <div class="w-full md:w-8/12">
-        <div class="mx-2 p-4 bg-white rounded-lg">
+        <div class="p-4 bg-white rounded-lg">
           <h2 class="font-semibold text-2xl text-black">
             <Link :href="route('frontend.communities.show', community.slug)">
               t/{{ community.name }}
             </Link>
           </h2>
         </div>
-        <div class="flex m-2 bg-white rounded-lg text-sm text-slate-400">
+        <div class="flex mt-2 bg-white rounded-lg text-xs text-slate-700">
           <div>
             <PostVote :post="post.data" />
           </div>
@@ -48,10 +48,10 @@
 
             </div>
             <div class="ml-2 pl-2">
-              <h1 class="font-semibold text-3xl text-black">
+              <h1 class="font-semibold text-2xl text-black">
                 {{ post.data.title }}
               </h1>
-              <p class="text-slate-700 my-2">{{ post.data.description }}</p>
+              <p class="text-slate-700 text-base my-2">{{ post.data.description }}</p>
               <a
                 :href="post.data.url"
                 class="font-semibold text-blue-500 text-sm hover:text-blue-300"
@@ -131,6 +131,7 @@
                   </div>
                   <div class="text-slate-600 m-2 p-2">
                     {{ comment.content }}
+                    {{ comment }}
                   </div>
                 </li>
               </ul>
@@ -155,6 +156,7 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import PostList from "@/Components/PostList.vue";
+
 
 const isMenuOpen = ref(false);
 

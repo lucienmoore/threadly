@@ -25,7 +25,7 @@ const submit = () => {
             Это защищенная область приложения. Пожалуйста, введите пароль, чтобы продолжить.
         </div>
 
-        <form @submit.prevent="submit" novalidate>
+        <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
             <div>
                 <InputLabel for="password" value="Password" />
                 <TextInput

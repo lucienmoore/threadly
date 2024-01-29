@@ -35,7 +35,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Reset Password" />
 
-        <form @submit.prevent="submit" novalidate>
+        <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
             <div>
                 <InputLabel for="email" value="Электронная почта" />
 

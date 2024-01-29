@@ -1,19 +1,22 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import HorizontalLogo from '@/Components/HorizontalLogo.vue';
+import { computed } from 'vue';
 
 const showingNavigationDropdown = ref(false);
+
+const user = usePage().props.auth.user;
+const avatarUrl = computed(() => user.name ? `storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
 </script>
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-200">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="px-4 sm:px-6 lg:px-8">
@@ -40,8 +43,8 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ms-3 relative">
+                            <img :src="avatarUrl" alt="" class="rounded-full w-10 h-10">
+                            <div class="relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -117,7 +120,10 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
-                            Главная
+                            Треды
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('communities.index')" :active="route().current('communities.index')">
+                            Сообщества
                         </ResponsiveNavLink>
                     </div>
 

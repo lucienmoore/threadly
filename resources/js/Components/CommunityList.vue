@@ -9,7 +9,7 @@
         :key="community.id"
         class="py-3 sm:py-4"
       >
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-1">
           <Link
             :href="route('frontend.communities.show', community.slug)"
             class="
@@ -23,7 +23,7 @@
           >
             {{ community.name }}
           </Link>
-          <div>Тредов ({{ community.posts_count }})</div>
+          <div class="text-sm">• {{ community.posts_count }}</div>
         </div>
       </li>
     </ul>

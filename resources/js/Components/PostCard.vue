@@ -7,7 +7,8 @@
       bg-white
       rounded-lg
       border border-gray-200
-      shadow-md
+      shadow-sm
+      hover:border-custom-card-hover
       dark:bg-gray-800 dark:border-gray-700
     "
   >
@@ -15,7 +16,7 @@
       <PostVote :post="post" />
     </div>
     <div class="ml-1">
-      <div class="flex m-2 pt-1 text-sm">
+      <div class="flex m-2 pt-1 text-xs">
         <Link
           :href="route('frontend.communities.show', community)"
           class="font-semibold mr-2 hover:underline"
@@ -31,8 +32,8 @@
           class="
             mb-2
             ml-2
-            text-2xl
-            font-bold
+            text-lg
+            font-medium
             tracking-tight
             text-gray-900
             dark:text-white
@@ -40,10 +41,10 @@
         >
           {{ post.title }}
       </h5>
-      <p class="mb-3 ml-2 font-normal text-gray-700 dark:text-gray-400">
+      <p class="mb-3 ml-2 text-sm font-normal text-gray-700 dark:text-gray-400">
         {{ post.description }}
       </p>
-      <div class="flex mb-2 pb-2">
+      <div class="flex text-xs mb-2 pb-2">
         <p class="mr-4 p-2">Комментариев ({{ post.comments_count }})</p>
         <!-- <Link
           :href="

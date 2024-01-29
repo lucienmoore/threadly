@@ -16,12 +16,15 @@ class CommunityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $communities = Community::where('user_id', auth()->id())->paginate(5)->through(fn ($community) => [
+        $sortKey = $request->input('sort', 'created_at');
+
+        $communities = Community::orderBy($sortKey, 'desc')->paginate(10)->through(fn ($community) => [
             'id' => $community->id,
             'name' => $community->name,
             'slug' => $community->slug,
+            'user_id' => $community->user_id,
         ]);
         return Inertia::render('Communities/Index', compact('communities'));
     }

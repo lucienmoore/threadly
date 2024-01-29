@@ -32,11 +32,11 @@ const submit = () => {
     <GuestLayout>
         <Head title="Авторизация" />
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 mx-auto max-w-lg">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" novalidate>
+        <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
             <div>
                 <InputLabel for="email" value="Электронная почта" />
 

@@ -5,7 +5,7 @@
     </h2>
     <ul role="list" class="divide-y divide-slate-300 dark:divide-slate-700 p-4">
       <li v-for="post in posts" :key="post.id" class="py-3 sm:py-4">
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-1">
           <Link
             :href="
               route('frontend.communities.posts.show', [
@@ -24,7 +24,7 @@
           >
             {{ post.title }}
           </Link>
-          <div>Рейтинг ({{ post.votes }})</div>
+          <div class="text-sm">{{ post.votes }} <span class="text-custom-orange">♥</span></div>
         </div>
       </li>
     </ul>

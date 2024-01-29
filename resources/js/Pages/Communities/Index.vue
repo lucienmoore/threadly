@@ -51,6 +51,12 @@
                   "
                 >
                   <table class="min-w-full divide-y divide-gray-300">
+                    <!-- <div>
+                      <select v-model="sortKey" @change="fetchSortedCommunities">
+                        <option value="name">Название</option>
+                        <option value="created_at">Дата создания</option>
+                      </select>
+                    </div> -->
                     <thead class="bg-white">
                       <tr>
                         <th
@@ -138,19 +144,22 @@
                             sm:pr-6
                           "
                         >
+                        <div v-if="community.user_id === $page.props.auth.user.id">
                           <Link
                             :href="route('communities.edit', community.slug)"
                             class="text-custom-button hover:text-indigo-900 mr-3"
                             >Редактировать</Link
                           >
-                          <Link
+                          <button
+                            @click="confirmDeletion(community.slug)"
                             :href="route('communities.destroy', community.slug)"
                             class="text-red-600 hover:text-red-900"
                             method="delete"
                             as="button"
                             type="button"
-                            >Удалить</Link
+                            >Удалить</button
                           >
+                        </div>
                         </td>
                       </tr>
                     </tbody>
@@ -171,12 +180,20 @@
 </template>
 
 <script setup>
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import Pagination from "../../Components/Pagination.vue";
+import { Inertia } from '@inertiajs/inertia';
 
 defineProps({
   communities: Object,
 });
-</script>
 
+const confirmDeletion = (slug) => {
+  if (confirm('Вы уверены, что хотите удалить это сообщество?')) {
+    Inertia.delete(route('communities.destroy', slug));
+  }
+};
+
+</script>

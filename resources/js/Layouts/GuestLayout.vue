@@ -5,14 +5,18 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from 'vue';
+
+const user = usePage().props.auth.user;
+const avatarUrl = computed(() => user.name ? `storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
 
 const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
   <div>
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-200">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
         <div class="px-4 sm:px-6 lg:px-8">
@@ -35,8 +39,8 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-              <!-- Settings Dropdown -->
-              <div class="ml-3 relative" v-if="$page.props.auth.auth_check">
+              <img v-if="$page.props.auth.auth_check" :src="avatarUrl" alt="" class="rounded-full w-10 h-10">
+              <div class="relative" v-if="$page.props.auth.auth_check">
                 <Dropdown align="right" width="48">
                   <template #trigger>
                     <span class="inline-flex rounded-md">
@@ -153,8 +157,8 @@ const showingNavigationDropdown = ref(false);
           </div>
         </div>
 
-        <!-- Responsive Navigation Menu -->
-        <div
+        <!-- Responsive Navigation Menu Guest -->
+        <div v-if="!$page.props.auth.auth_check"
             :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
             class="sm:hidden"
         >
@@ -162,18 +166,51 @@ const showingNavigationDropdown = ref(false);
               <ResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
                   Треды
               </ResponsiveNavLink>
-          </div>
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-3 border-t border-gray-200">
-              <ResponsiveNavLink :href="route('login')" :active="route().current('login')">
-                  Войти
+              <ResponsiveNavLink :href="route('communities.index')" :active="route().current('communities.index')">
+                  Сообщества
               </ResponsiveNavLink>
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">
-                    </div>
-                    <div class="font-medium text-sm text-gray-500"></div>
-                </div>
-            </div>
+          </div>
+              <!-- Responsive Settings Options -->
+          <div class="pt-4 pb-3 border-t border-gray-200">
+            <ResponsiveNavLink :href="route('login')" :active="route().current('login')">
+                Войти
+            </ResponsiveNavLink>
+              <div class="px-4">
+                  <div class="font-medium text-base text-gray-800">
+                  </div>
+                  <div class="font-medium text-sm text-gray-500"></div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Responsive Navigation Menu Auth -->
+          <div v-else
+            :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
+            class="sm:hidden"
+            >
+              <div class="pt-2 pb-3 space-y-1">
+                  <ResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
+                      Треды
+                  </ResponsiveNavLink>
+                  <ResponsiveNavLink :href="route('communities.index')" :active="route().current('communities.index')">
+                      Сообщества
+                  </ResponsiveNavLink>
+              </div>
+              <!-- Responsive Settings Options -->
+              <div class="pt-4 pb-1 border-t border-gray-200">
+                  <div class="px-4">
+                      <div class="font-medium text-base text-gray-800">
+                          {{ $page.props.auth.user.name }}
+                      </div>
+                      <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
+                  </div>
+                  <div class="mt-3 space-y-1">
+                      <ResponsiveNavLink :href="route('profile.edit')"> Профиль </ResponsiveNavLink>
+                      <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                          Выйти
+                      </ResponsiveNavLink>
+                  </div>
+              </div>
           </div>
       </nav>
 

@@ -43,11 +43,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'avatar' => $request->avatar
         ]);
 
         $avatarPath = null;
         if ($request->hasFile('avatar')) {
-            $filename = $user->id . '.jpg'; // Используйте ID пользователя
+            $filename = $user->id . '.jpg'; 
             $avatarPath = $request->file('avatar')->storeAs('avatars', $filename, 'public');
     
             $path = storage_path('app/public/' . $avatarPath);
@@ -55,7 +56,6 @@ class RegisteredUserController extends Controller
                 ImageOptimizer::optimize($path);
             }
     
-            // Обновление пользователя с новым путем аватарки
             $user->update(['avatar' => $avatarPath]);
         }
 

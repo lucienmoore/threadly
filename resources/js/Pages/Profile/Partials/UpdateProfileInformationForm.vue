@@ -39,7 +39,7 @@ const form = useForm({
             <div>
                 <InputLabel for="avatar" value="Аватар" />
 
-                <img :src="avatarUrl" alt="" class="w-20 h-20">
+                <img :src="avatarUrl" alt="" class="w-20 h-20 mb-2">
 
                 <input
                     id="avatar"

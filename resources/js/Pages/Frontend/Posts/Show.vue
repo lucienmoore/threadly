@@ -122,16 +122,16 @@
                   :key="index"
                   class="py-4 flex flex-col"
                 >
-                  <div class="text-sm">
-                    <span class="font-semibold ml-1 text-slate-700">{{
+                  <div class="text-sm flex items-center gap-1">
+                    <img :src="comment.avatar_url" alt="" class="rounded-full w-7 h-7">
+                    <span class="font-semibold text-xs ml-1 text-slate-700">{{
                       comment.name
                     }}
                     </span>
                     <span class="text-gray-500 text-xs"> ({{ comment.created_at }})</span>
                   </div>
-                  <div class="text-slate-600 m-2 p-2">
+                  <div class="text-slate-600 text-sm m-2 p-2">
                     {{ comment.content }}
-                    {{ comment }}
                   </div>
                 </li>
               </ul>
@@ -156,7 +156,6 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import PostList from "@/Components/PostList.vue";
-
 
 const isMenuOpen = ref(false);
 

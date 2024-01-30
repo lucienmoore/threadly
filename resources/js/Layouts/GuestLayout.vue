@@ -9,7 +9,7 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from 'vue';
 
 const user = usePage().props.auth.user;
-const avatarUrl = computed(() => user.name ? `storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
+const avatarUrl = computed(() => user.name ? `/storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
 
 const showingNavigationDropdown = ref(false);
 </script>

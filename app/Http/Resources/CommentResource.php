@@ -19,7 +19,7 @@ class CommentResource extends JsonResource
             'name' => $this->user->name,
             'content' => $this->content,
             'created_at' => $this->created_at->diffForHumans(),
-            'avatar_url' => url("/storage/avatars/{$this->user->id}.jpg"),
+            'avatar_url' => url("/storage/{$this->user->avatar}"),
         ];
     }
 }

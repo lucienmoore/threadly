@@ -11,7 +11,7 @@ import { computed } from 'vue';
 const showingNavigationDropdown = ref(false);
 
 const user = usePage().props.auth.user;
-const avatarUrl = computed(() => user.name ? `/storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
+const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}` : '/storage/avatars/user.svg');
 </script>
 
 <template>
@@ -43,7 +43,7 @@ const avatarUrl = computed(() => user.name ? `/storage/avatars/${user.id}.jpg` :
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <img :src="avatarUrl" alt="" class="rounded-full w-10 h-10">
+                            <a :href="route('profile.edit')"><img :src="avatarUrl" alt="" class="rounded-full w-10 h-10 object-cover"></a>
                             <div class="relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>

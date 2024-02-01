@@ -28,7 +28,6 @@ Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
 Route::get('/t/{slug}', [FrontendCommunityController::class, 'show'])->name('frontend.communities.show');
 Route::get('/t/{community_slug}/posts/{post:slug}', [PostController::class, 'show'])->name('frontend.communities.posts.show');
-Route::post('/t/{community_slug}/posts/{post:slug}/comments', [PostCommentController::class, 'store'])->name('frontend.posts.comments');
 
 Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::middleware('auth')->group(function () {
@@ -41,6 +40,8 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     
         Route::post('/posts/{post:slug}/upVote', [PostVoteController::class, 'upVote'])->name('posts.upVote');
         Route::post('/posts/{post:slug}/downVote', [PostVoteController::class, 'downVote'])->name('posts.downVote');
+
+        Route::post('/t/{community_slug}/posts/{post:slug}/comments', [PostCommentController::class, 'store'])->name('frontend.posts.comments');
     });
 
 });

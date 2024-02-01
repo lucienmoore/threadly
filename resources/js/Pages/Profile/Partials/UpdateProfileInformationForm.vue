@@ -16,13 +16,14 @@ defineProps({
 });
 
 const user = usePage().props.auth.user;
-const avatarUrl = computed(() => user.name ? `storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
+const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}` : '/storage/avatars/user.svg');
 
 const form = useForm({
     name: user.name,
     email: user.email,
     avatar: user.avatar
 });
+
 </script>
 
 <template>
@@ -39,12 +40,13 @@ const form = useForm({
             <div>
                 <InputLabel for="avatar" value="Аватар" />
 
-                <img :src="avatarUrl" alt="" class="w-20 h-20 mb-2">
+                <div class="w-20 h-20 flex items-center justify-center border border-gray-300 my-1">
+                    <img :src="avatarUrl" alt="" class="object-cover h-20 w-20">
+                </div>
 
                 <input
                     id="avatar"
                     type="file"
-                    @change="handleAvatarChange"
                     accept="image/jpeg, image/png"
                 />
 

@@ -144,8 +144,9 @@
                             sm:pr-6
                           "
                         >
-                        <div v-if="community.user_id === $page.props.auth.user.id">
+                        <div v-if="community.user_id === $page.props.auth.user.id || user.is_admin == 1">
                           <Link
+                            v-if="community.user_id === $page.props.auth.user.id"
                             :href="route('communities.edit', community.slug)"
                             class="text-custom-button hover:text-indigo-900 mr-3"
                             >Редактировать</Link
@@ -182,7 +183,7 @@
 <script setup>
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, usePage } from "@inertiajs/vue3";
 import Pagination from "../../Components/Pagination.vue";
 import { Inertia } from '@inertiajs/inertia';
 
@@ -195,5 +196,7 @@ const confirmDeletion = (slug) => {
     Inertia.delete(route('communities.destroy', slug));
   }
 };
+
+const user = usePage().props.auth.user;
 
 </script>

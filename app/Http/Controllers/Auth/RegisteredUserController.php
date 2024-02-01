@@ -43,10 +43,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => $request->avatar
         ]);
 
-        $avatarPath = null;
         if ($request->hasFile('avatar')) {
             $filename = $user->id . '.jpg'; 
             $avatarPath = $request->file('avatar')->storeAs('avatars', $filename, 'public');

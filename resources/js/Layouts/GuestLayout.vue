@@ -9,7 +9,7 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from 'vue';
 
 const user = usePage().props.auth.user;
-const avatarUrl = computed(() => user.name ? `/storage/avatars/${user.id}.jpg` : '/avatars/noname.jpg');
+const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}` : '/storage/avatars/user.svg');
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -39,7 +39,7 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-              <img v-if="$page.props.auth.auth_check" :src="avatarUrl" alt="" class="rounded-full w-10 h-10">
+              <a :href="route('profile.edit')"><img v-if="$page.props.auth.auth_check" :src="avatarUrl" alt="" class="rounded-full w-10 h-10 object-cover"></a>
               <div class="relative" v-if="$page.props.auth.auth_check">
                 <Dropdown align="right" width="48">
                   <template #trigger>

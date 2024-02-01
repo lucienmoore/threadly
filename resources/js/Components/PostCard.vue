@@ -19,12 +19,11 @@
       <div class="flex m-2 pt-1 text-xs">
         <Link
           :href="route('frontend.communities.show', community)"
-          class="font-semibold mr-2 hover:underline"
+          class="font-semibold mr-1 hover:underline"
           >t/{{ community }}</Link
         >
-        <div class="flex">
-          Опубликовано
-          <span class="font-semibold mx-1">{{ post.name }}</span>
+        <div class="flex text-gray-500">• Опубликовано
+          <span class="mx-1 text-gray-500">{{ post.name }}</span>
           {{ post.created_at }}
         </div>
       </div>

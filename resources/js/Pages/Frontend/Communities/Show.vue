@@ -1,14 +1,15 @@
 <template>
   <guest-layout>
-    <section class="flex md:flex-row m-2 p-2">
-      <div class="w-8/12 mt-5">
-        <Link
-          v-if="$page.props.auth.auth_check"
-          :href="route('communities.posts.create', community.slug)"
-          class="px-4 py-2 rounded font-medium text-sm bg-custom-orange hover:bg-custom-orange-hover text-white"
-          >Создать тред</Link
-        >
-        <div v-if="posts.data.length === 0" class="w-8/12 mt-5">
+    <section class="flex flex-col md:flex-row">
+      <div class="w-full md:w-8/12 mt-5">
+        <div class="p-4 mb-3 bg-white rounded-lg">
+          <h2 class="font-semibold text-2xl text-black">
+            <Link :href="route('frontend.communities.show', community.slug)">
+              t/{{ community.name }}
+            </Link>
+          </h2>
+        </div>
+        <div v-if="posts.data.length === 0" class="w-8/12 mt-5 pl-2">
           Здесь пока что пусто...
         </div>
         <div v-else>
@@ -19,25 +20,40 @@
             :key="post.id"
           />
           <div class="mt-4 p-2">
-            <Pagination :links="posts.meta.links" />
+            <Pagination v-if="posts.meta.links.length > 3" :links="posts.meta.links" />
           </div>
         </div>
       </div>
-      <div class="w-4/12 p-4">
+      <div class="w-full md:w-4/12 pt-4 p-4">
         <div>
           <h2
             class="
               font-semibold
               text-lg
               p-4
-              bg-custom-orange
+              break-all
+              bg-custom-blue
               rounded-t-lg
               text-white
             "
           >
-            Информация о {{ community.name }}
+            О сообществе {{ community.name }}
           </h2>
-          <p class="bg-white p-4 rounded-b-lg break-all">{{ community.description }}</p>
+          <p class="bg-white p-3 rounded-b-lg break-all flex flex-col gap-4">
+            <div>
+              {{ community.description }}
+            </div>
+            <div>
+              🎂 Дата создания: {{ formatDate(community.created_at) }}
+            </div>
+            <div class="flex justify-center">
+              <Link
+              v-if="$page.props.auth.auth_check"
+              :href="route('communities.posts.create', community.slug)"
+              class="px-4 py-2 w-full text-center rounded-full font-medium text-sm bg-custom-blue hover:bg-blue-500 text-white"
+              >Создать тред</Link>
+            </div>
+          </p>
         </div>
         <CommunityList class="mt-4" :communities="communities.data">
           <template #title>Популярные сообщества</template>
@@ -53,6 +69,13 @@ import { Link } from "@inertiajs/vue3";
 import PostCard from "@/Components/PostCard.vue";
 import Pagination from "@/Components/Pagination.vue";
 import CommunityList from "@/Components/CommunityList.vue";
+import { format, parseISO } from 'date-fns';
+import { ru } from 'date-fns/locale';
+
+const formatDate = (dateString) => {
+  const date = parseISO(dateString);
+  return format(date, "PP", { locale: ru });
+};
 
 defineProps({
   community: Object,

@@ -15,20 +15,30 @@
                   justify-center
                   rounded-md
                   border border-transparent
-                  bg-custom-orange
+                  bg-custom-blue
                   px-4
                   py-2
                   text-sm
                   font-medium
                   text-white
                   shadow-sm
-                  hover:bg-custom-orange-hover
+                  hover:bg-blue-500
                   sm:w-auto
                   transition ease-in-out duration-150
                 "
                 >Добавить сообщество</Link
               >
             </div>
+          </div>
+          <div class="mb-4 mt-4">
+            <input
+              v-model="searchQuery"
+              autofocus
+              @input="fetchCommunities"
+              type="text"
+              placeholder="Поиск по названию..."
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            />
           </div>
           <div class="mt-4 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -42,7 +52,7 @@
                   lg:px-8
                 "
               >
-                <div
+                <div v-if="communities.data.length > 0"
                   class="
                     overflow-hidden
                     shadow
@@ -83,7 +93,31 @@
                             text-gray-900
                           "
                         >
-                          Треды
+                          Описание
+                        </th>
+                        <th
+                          scope="col"
+                          class="
+                            px-3
+                            py-3.5
+                            text-left text-sm
+                            font-semibold
+                            text-gray-900
+                          "
+                        >
+                          Создатель
+                        </th>
+                        <th
+                          scope="col"
+                          class="
+                            px-3
+                            py-3.5
+                            text-left text-sm
+                            font-semibold
+                            text-gray-900
+                          "
+                        >
+                          Создано
                         </th>
                         <th
                           scope="col"
@@ -127,10 +161,37 @@
                             whitespace-nowrap
                             px-3
                             py-4
+                            max-w-40
+                            truncate
                             text-sm text-gray-500
                           "
                         >
-                          {{ community.slug }}
+                          {{ community.description }}
+                        </td>
+                        <td
+                          class="
+                            whitespace-nowrap
+                            px-3
+                            py-4
+                            break-all
+                            truncate
+                            max-w-40
+                            text-sm text-gray-500
+                          "
+                        >
+                        {{ community.user_name }}
+                        </td>
+                        <td
+                          class="
+                            whitespace-nowrap
+                            px-3
+                            py-4
+                            break-all
+                            max-w-40
+                            text-sm text-gray-500
+                          "
+                        >
+                        {{ community.created_at }}
                         </td>
                         <td
                           class="
@@ -178,11 +239,12 @@
                       </tr>
                     </tbody>
                   </table>
-                  <div v-if="communities.data.length === 0" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                  </div>
-                  <div v-else class="m-2 p-2">
+                  <div v-if="communities.links && communities.links.length > 3" class="m-2 p-2">
                     <Pagination :links="communities.links" />
                   </div>
+                </div>
+                <div v-if="communities.data.length === 0" class="text-center py-2">
+                  <h2 class="text-sm text-gray-600">По запросу ничего не найдено</h2>
                 </div>
               </div>
             </div>
@@ -199,6 +261,35 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, usePage } from "@inertiajs/vue3";
 import Pagination from "../../Components/Pagination.vue";
 import { Inertia } from '@inertiajs/inertia';
+import { ref, watch } from 'vue';
+
+const debounce = (fn, delay = 600) => {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+};
+
+const searchQuery = ref(localStorage.getItem('searchQuery') || '');
+
+const debouncedFetchCommunities = debounce(() => {
+  Inertia.get(route('communities.index'), { search: searchQuery.value }, {
+    only: ['communities'],
+    preserveState: true,
+    preserveScroll: true,
+    replace: true,
+  });
+});
+
+watch(searchQuery, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    debouncedFetchCommunities();
+    localStorage.setItem('searchQuery', newValue);
+  }
+});
 
 defineProps({
   communities: Object,
@@ -228,6 +319,6 @@ const user = usePage().props.auth.user;
 }
 
 .link-hover:hover .edit-svg-icon {
-  fill: #1B4EF7; 
+  fill: #0079D3;
 }
 </style>

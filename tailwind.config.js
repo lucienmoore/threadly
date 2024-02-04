@@ -18,6 +18,7 @@ export default {
 
             colors: {
                 'custom-orange': '#FF684D',
+                'custom-blue' : '#0079D3',
                 'custom-orange-hover': '#E65E44',
                 'custom-orange-active': '#CA5742',
                 'custom-input-focus': '#FF9D8A',

@@ -4,7 +4,6 @@
     class="
       mt-4
       flex
-      flex-wrap
       bg-white
       rounded-lg
       border border-gray-200
@@ -15,7 +14,6 @@
   >
     <div class="flex">
       <PostVote :post="post" />
-      <div class="community-image"><img src="" class="" alt="Обложка сообщества"></div>
     </div>
     <div class="ml-1">
       <div class="flex flex-wrap m-2 pt-1 text-xs">
@@ -24,7 +22,7 @@
           class="font-semibold mr-1 hover:underline"
           >t/{{ community }}</Link
         >
-        <div class="flex flex-wrap text-gray-500">• Опубликовано
+        <div class="flex flex-wrap text-gray-500"><span class="mr-1 hidden posted-dot">•</span> Опубликовано
           <span class="mx-1 text-gray-500">{{ post.name }}</span>
           {{ post.created_at }}
         </div>
@@ -98,12 +96,16 @@ defineProps({
 
 <style>
 
-@media (min-width: 499px) { 
-
-  .community-image {
-    display: none;
+@media (min-width: 462px) { 
+  .posted-dot {
+    display: block;
   }
+}
 
+@media (min-width: 456px) { 
+  .posted-dot {
+    display: block;
+  }
 }
 
 </style>

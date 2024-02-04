@@ -106,8 +106,8 @@
                   class="
                     px-4
                     py-2
-                    bg-custom-button
-                    hover:bg-blue-700
+                    bg-custom-blue
+                    hover:bg-blue-500
                     text-white
                     rounded-md
                     disabled:bg-blue-300
@@ -221,6 +221,6 @@ function deleteComment(communitySlug, postSlug, commentId) {
 }
 
 .link-hover:hover .edit-svg-icon {
-  fill: #1B4EF7;
+  fill: #0079D3;
 }
 </style>

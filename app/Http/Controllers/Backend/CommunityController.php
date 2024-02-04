@@ -19,13 +19,24 @@ class CommunityController extends Controller
     public function index(Request $request)
     {
         $sortKey = $request->input('sort', 'created_at');
+        $searchQuery = $request->input('search', ''); 
 
-        $communities = Community::orderBy($sortKey, 'desc')->paginate(10)->through(fn ($community) => [
-            'id' => $community->id,
-            'name' => $community->name,
-            'slug' => $community->slug,
-            'user_id' => $community->user_id,
-        ]);
+        $communities = Community::with('user')
+            ->when($searchQuery, function ($query, $searchQuery) {
+                return $query->where('name', 'LIKE', "%{$searchQuery}%"); 
+            })
+            ->orderBy($sortKey, 'desc')
+            ->paginate(8)
+            ->through(fn ($community) => [
+                'id' => $community->id,
+                'name' => $community->name,
+                'slug' => $community->slug,
+                'user_id' => $community->user_id,
+                'user_name' => $community->user->name,
+                'description' => $community->description,
+                'created_at' => $community->created_at->diffForHumans()
+            ]);
+
         return Inertia::render('Communities/Index', compact('communities'));
     }
 

@@ -21,9 +21,12 @@ const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}` : '/sto
 const form = useForm({
     name: user.name,
     email: user.email,
-    avatar: user.avatar
+    avatar: null
 });
 
+const handleFileChange = (event) => {
+    form.avatar = event.target.files[0];
+};
 </script>
 
 <template>
@@ -36,7 +39,7 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form @submit.prevent="form.put(route('profile.update'))" enctype="multipart/form-data" class="mt-6 space-y-6" novalidate>
             <div>
                 <InputLabel for="avatar" value="Аватар" />
 
@@ -44,13 +47,20 @@ const form = useForm({
                     <img :src="avatarUrl" alt="" class="object-cover h-20 w-20">
                 </div>
 
-                <input
+                <div class="mt-4">
+                    <input
                     id="avatar"
                     type="file"
-                    accept="image/jpeg, image/png"
-                />
+                    @click="handleFileChange"
+                    accept="image/*"
+                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-lg border border-gray-300 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:cursor-pointer file:active:bg-custom-orange-hover file:mr-4 file:py-2 file:px-4 file:rounded-r-lg file:border-0 file:font-medium file:bg-custom-orange file:text-white"
+                    />
+                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                    {{ form.progress.percentage }}%
+                    </progress>
+                    <InputError class="mt-2" :message="form.errors.avatar" />
+                </div>
 
-                <InputError class="mt-2" :message="form.errors.avatar" />
             </div>
             
             <div>

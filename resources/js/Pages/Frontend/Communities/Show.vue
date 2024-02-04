@@ -37,7 +37,7 @@
           >
             Информация о {{ community.name }}
           </h2>
-          <p class="bg-white p-4 rounded-b-lg">{{ community.description }}</p>
+          <p class="bg-white p-4 rounded-b-lg break-all">{{ community.description }}</p>
         </div>
         <CommunityList class="mt-4" :communities="communities.data">
           <template #title>Популярные сообщества</template>

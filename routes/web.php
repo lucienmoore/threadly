@@ -32,7 +32,7 @@ Route::get('/t/{community_slug}/posts/{post:slug}', [PostController::class, 'sho
 Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
         Route::resource('/communities', CommunityController::class);
@@ -42,8 +42,8 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
         Route::post('/posts/{post:slug}/downVote', [PostVoteController::class, 'downVote'])->name('posts.downVote');
 
         Route::post('/t/{community_slug}/posts/{post:slug}/comments', [PostCommentController::class, 'store'])->name('frontend.posts.comments');
+        Route::delete('/t/{community_slug}/posts/{post:slug}/comments/{comment}', [PostCommentController::class, 'destroy'])->name('frontend.posts.comments.destroy');
     });
-
 });
 
 require __DIR__.'/auth.php';

@@ -26,8 +26,8 @@ class CommunityStoreRequest extends FormRequest
     {
         $communityId = $this->route('community'); 
         return [
-            'name' => ['required', Rule::unique('communities')->ignore($communityId),],
-            'description' => ['required', 'min:5']
+            'name' => ['required', 'min:5', 'max:25', Rule::unique('communities')->ignore($communityId),],
+            'description' => ['required', 'min:5', 'max:255']
         ];
     }
 
@@ -35,6 +35,8 @@ class CommunityStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'Название сообщества обязательно к заполнению.',
+            'name.min' => 'Количество символов в поле название должно быть не меньше 5.',
+            'name.max' => 'Количество символов в поле название не должно быть больше 25',
             'description.required' => 'Описание сообщества обязательно к заполнению.'
         ];
     }

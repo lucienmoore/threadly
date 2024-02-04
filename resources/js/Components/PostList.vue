@@ -24,7 +24,7 @@
           >
             {{ post.title }}
           </Link>
-          <div class="text-sm">{{ post.votes }} <span class="text-custom-orange">♥</span></div>
+          <div class="text-sm flex gap-1">{{ post.votes }} <span class="text-custom-orange">♥</span></div>
         </div>
       </li>
     </ul>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,11 +16,16 @@ class CommentResource extends JsonResource
      */
     public function toArray($request) : array
     {
+
+        $avatarPath = $this->user->avatar ? "public/{$this->user->avatar}" : "avatars/user.svg";
+        
+        $avatarUrl = Storage::exists($avatarPath) ? Storage::url($this->user->avatar) : asset('storage/' . $avatarPath);
+
         return [
             'name' => $this->user->name,
             'content' => $this->content,
             'created_at' => $this->created_at->diffForHumans(),
-            'avatar_url' => url("/storage/{$this->user->avatar}"),
+            'avatar_url' => $avatarUrl,
         ];
     }
 }

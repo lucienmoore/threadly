@@ -4,6 +4,7 @@
     class="
       mt-4
       flex
+      flex-wrap
       bg-white
       rounded-lg
       border border-gray-200
@@ -12,17 +13,18 @@
       dark:bg-gray-800 dark:border-gray-700
     "
   >
-    <div>
+    <div class="flex">
       <PostVote :post="post" />
+      <div class="community-image"><img src="" class="" alt="Обложка сообщества"></div>
     </div>
     <div class="ml-1">
-      <div class="flex m-2 pt-1 text-xs">
+      <div class="flex flex-wrap m-2 pt-1 text-xs">
         <Link
           :href="route('frontend.communities.show', community)"
           class="font-semibold mr-1 hover:underline"
           >t/{{ community }}</Link
         >
-        <div class="flex text-gray-500">• Опубликовано
+        <div class="flex flex-wrap text-gray-500">• Опубликовано
           <span class="mx-1 text-gray-500">{{ post.name }}</span>
           {{ post.created_at }}
         </div>
@@ -93,3 +95,15 @@ defineProps({
   community: String,
 });
 </script>
+
+<style>
+
+@media (min-width: 499px) { 
+
+  .community-image {
+    display: none;
+  }
+
+}
+
+</style>

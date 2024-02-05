@@ -20,13 +20,13 @@ class PostController extends Controller
         $community_post = Post::with(['comments', 'postVotes' => function ($query) {
             $query->where('user_id', auth()->id());
         }])->where('slug', $slug)->first();
-
+        
         $post = new PostShowResource($community_post);
-
         $posts = PostResource::collection($community->posts()->orderBy('votes', 'desc')->take(6)->get());
 
         $can_update = Auth::check() ? Auth::user()->can('update', $community_post) : false;
         $can_delete = Auth::check() ? Auth::user()->can('delete', $community_post) : false;
+
         return Inertia::render('Frontend/Posts/Show', compact('community', 'post', 'posts', 'can_update', 'can_delete'));
     }
 }

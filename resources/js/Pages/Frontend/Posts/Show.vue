@@ -48,7 +48,6 @@
                       </svg>
                   </Link>
               </div>
-
             </div>
             <div class="ml-2 pl-2 sm:-mt-5">
               <h1 class="font-semibold text-2xl text-black max-w-md" v-bind:class="{'font-semibold text-2xl text-black': true, 'mt-3': !can_delete}">
@@ -97,12 +96,12 @@
                       dark:focus:ring-blue-500
                       dark:focus:border-blue-500
                     "
-                    placeholder="Что об этом думаете?"
+                    placeholder="Что думаете об этом?"
                   ></textarea>
                 </div>
                 <div class="mt-2">
                   <button
-                  :disabled="!form.content.trim()"
+                  :disabled="!form.content.trim() || isSubmitting"
                   class="
                     px-4
                     py-2
@@ -132,15 +131,59 @@
                     }}
                     </span>
                     <span class="text-gray-500 truncate text-xs"> · {{ comment.created_at }}</span>
-                    <div v-if="$page.props.auth.auth_check" @click="deleteComment(communitySlug, postSlug, comment.id)" class="ml-auto mr-2 text-red-500 cursor-pointer text-xs">
-                      Удалить
+                    <div v-if="$page.props.auth.auth_check" class="flex gap-2 ml-auto">
+                        <div v-if="comment.user_id === $page.props.auth.user.id" class="ml-auto text-blue-500 cursor-pointer text-xs" @click="editComment(comment)">
+                        Редактировать
+                      </div>
+                      <div v-if="comment.user_id === $page.props.auth.user.id || user.is_admin == 1" class="ml-auto mr-2 text-red-500 cursor-pointer text-xs" @click="deleteComment(comment.id)">
+                        Удалить
+                      </div>
                     </div>
                   </div>
-                  <div class="text-slate-600 text-sm m-2 sm:p-2 flex sm:gap-5">
+                  <div class="text-slate-600 flex text-sm ml-2 mt-2 sm:mt-0 sm:p-2 flex sm:gap-5">
                     <div>
                     </div>
-                    <div>
+                    <div class="break-all w-4/5 flex flex-col gap-2">
                       {{ comment.content }}
+                        <div v-if="editingComment && editingComment.id === comment.id">
+                        <textarea
+                          v-model="editingContent"
+                          rows="3"
+                          class="
+                            block
+                            p-2.5
+                            w-full
+                            text-sm text-gray-900
+                            bg-gray-50
+                            rounded-lg
+                            border border-gray-300
+                            focus:ring-blue-500 focus:border-blue-500
+                            dark:bg-gray-700
+                            dark:border-gray-600
+                            dark:placeholder-gray-400
+                            dark:text-white
+                            dark:focus:ring-blue-500
+                            dark:focus:border-blue-500
+                          "
+                          placeholder="Что думаете об этом?"
+                        ></textarea>
+                        <button
+                          @click="saveEdit"
+                          class="
+                            mt-2
+                            px-4
+                            py-2
+                            bg-custom-blue
+                            hover:bg-blue-500
+                            text-xs
+                            text-white
+                            rounded-md
+                            disabled:bg-blue-300
+                          "
+                          >
+                          Сохранить
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -160,13 +203,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import PostList from "@/Components/PostList.vue";
 import { Inertia } from '@inertiajs/inertia';
+
+const user = usePage().props.auth.user;
 
 const isMenuOpen = ref(false);
 
@@ -182,13 +226,18 @@ const form = useForm({
   content: "",
 });
 
+const isSubmitting = ref(false); // Добавьте эту новую переменную
+
 const submit = () => {
+  isSubmitting.value = true; // Начинаем отправку, отключаем кнопку
   form.post(
     route("frontend.posts.comments", [
       props.community.slug,
       props.post.data.slug,
     ]),
     {
+      onStart: () => isSubmitting.value = true,
+      onFinish: () => isSubmitting.value = false, // Включаем кнопку обратно после отправки
       onSuccess: () => form.reset("content"),
     }
   );
@@ -198,13 +247,32 @@ const reversedComments = computed(() => {
   return [...props.post.data.comments].reverse();
 });
 
-function deleteComment(communitySlug, postSlug, commentId) {
-    if (confirm("Вы уверены, что хотите удалить этот комментарий?")) {
-        Inertia.delete(route('frontend.posts.comments.destroy', { community_slug: communitySlug, post: postSlug, comment: commentId }), {
-            // Вы можете добавить здесь onSuccess или onError коллбэки, если нужно
-        });
-    }
-}
+const editingComment = ref(null);
+const editingContent = ref("");
+
+const editComment = (comment) => {
+  if (editingComment.value && editingComment.value.id === comment.id) {
+    editingComment.value = null;
+    editingContent.value = '';
+  } else {
+    editingComment.value = comment;
+    editingContent.value = comment.content;
+  }
+};
+
+const saveEdit = () => {
+  Inertia.put(route('comments.update', { comment: editingComment.value.id }), { content: editingContent.value });
+  editingComment.value = null; 
+};
+
+const deleteComment = (commentId) => {
+  if (!commentId) {
+    console.error('Comment ID is required');
+    return;
+  }
+  Inertia.delete(route('comments.destroy', { comment: commentId }));
+};
+
 </script>
 
 <style>

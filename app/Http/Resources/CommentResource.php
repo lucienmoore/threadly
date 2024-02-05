@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class CommentResource extends JsonResource
 {
@@ -21,11 +22,17 @@ class CommentResource extends JsonResource
         
         $avatarUrl = Storage::exists($avatarPath) ? Storage::url($this->user->avatar) : asset('storage/' . $avatarPath);
 
+        // dd(Auth::user(), $this->user->can('update', $this));
+
         return [
+            'id' => $this->id,
+            'user_id' => $this->user_id,
             'name' => $this->user->name,
             'content' => $this->content,
             'created_at' => $this->created_at->diffForHumans(),
             'avatar_url' => $avatarUrl,
+            'can_update' => Auth::user() ? Auth::user()->can('update', $this) : false,
+            'can_delete' => Auth::user() ? Auth::user()->can('delete', $this) : false,
         ];
     }
 }

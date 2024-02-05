@@ -42,7 +42,8 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
         Route::post('/posts/{post:slug}/downVote', [PostVoteController::class, 'downVote'])->name('posts.downVote');
 
         Route::post('/t/{community_slug}/posts/{post:slug}/comments', [PostCommentController::class, 'store'])->name('frontend.posts.comments');
-        Route::delete('/t/{community_slug}/posts/{post:slug}/comments/{comment}', [PostCommentController::class, 'destroy'])->name('frontend.posts.comments.destroy');
+        Route::put('/comments/{comment}', [PostCommentController::class, 'update'])->name('comments.update');
+        Route::delete('/comments/{comment}', [PostCommentController::class, 'destroy'])->name('comments.destroy');
     });
 });
 

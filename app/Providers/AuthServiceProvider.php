@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Providers;
+use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Comment;
+use App\Policies\CommentPolicy;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Comment::class => CommentPolicy::class,
     ];
 
     /**

@@ -31,7 +31,6 @@
               font-semibold
               text-lg
               p-4
-              break-all
               bg-custom-blue
               rounded-t-lg
               text-white
@@ -39,7 +38,7 @@
           >
             О сообществе {{ community.name }}
           </h2>
-          <p class="bg-white p-3 rounded-b-lg break-all flex flex-col gap-4">
+          <p class="bg-white p-3 rounded-b-lg flex flex-col gap-4">
             <div>
               {{ community.description }}
             </div>

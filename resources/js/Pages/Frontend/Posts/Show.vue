@@ -53,7 +53,7 @@
               <h1 class="font-semibold text-2xl text-black max-w-md" v-bind:class="{'font-semibold text-2xl text-black': true, 'mt-3': !can_delete}">
                 {{ post.data.title }}
               </h1>
-              <p class="text-slate-700 text-base my-2 break-all w-2/3">{{ post.data.description }}</p>
+              <p class="text-slate-700 text-base my-2 w-4/5" v-html="post.data.description"></p>
               <a
                 :href="post.data.url"
                 class="font-semibold text-blue-500 text-sm hover:text-blue-300"
@@ -76,28 +76,7 @@
                     "
                     >Ваш комментарий</label
                   >
-                  <textarea
-                    v-model="form.content"
-                    id="comment"
-                    rows="4"
-                    class="
-                      block
-                      p-2.5
-                      w-full
-                      text-sm text-gray-900
-                      bg-gray-50
-                      rounded-lg
-                      border border-gray-300
-                      focus:ring-blue-500 focus:border-blue-500
-                      dark:bg-gray-700
-                      dark:border-gray-600
-                      dark:placeholder-gray-400
-                      dark:text-white
-                      dark:focus:ring-blue-500
-                      dark:focus:border-blue-500
-                    "
-                    placeholder="Что думаете об этом?"
-                  ></textarea>
+                  <QuillEditor v-model="form.content" />
                 </div>
                 <div class="mt-2">
                   <button
@@ -144,45 +123,27 @@
                     <div>
                     </div>
                     <div class="break-all w-4/5 flex flex-col gap-2">
-                      {{ comment.content }}
+                      <div v-html="comment.content"></div>
                         <div v-if="editingComment && editingComment.id === comment.id">
-                        <textarea
-                          v-model="editingContent"
-                          rows="3"
-                          class="
-                            block
-                            p-2.5
-                            w-full
-                            text-sm text-gray-900
-                            bg-gray-50
-                            rounded-lg
-                            border border-gray-300
-                            focus:ring-blue-500 focus:border-blue-500
-                            dark:bg-gray-700
-                            dark:border-gray-600
-                            dark:placeholder-gray-400
-                            dark:text-white
-                            dark:focus:ring-blue-500
-                            dark:focus:border-blue-500
-                          "
-                          placeholder="Что думаете об этом?"
-                        ></textarea>
-                        <button
-                          @click="saveEdit"
-                          class="
-                            mt-2
-                            px-4
-                            py-2
-                            bg-custom-blue
-                            hover:bg-blue-500
-                            text-xs
-                            text-white
-                            rounded-md
-                            disabled:bg-blue-300
-                          "
-                          >
-                          Сохранить
-                        </button>
+                          <div class="h-30 mb-15">
+                            <QuillEditor v-model="editingContent" />
+                          </div>
+                          <button
+                            @click="saveEdit"
+                            class="
+                              mt-2
+                              px-4
+                              py-2
+                              bg-custom-blue
+                              hover:bg-blue-500
+                              text-xs
+                              text-white
+                              rounded-md
+                              disabled:bg-blue-300
+                            "
+                            >
+                            Сохранить
+                          </button>
                       </div>
                     </div>
                   </div>
@@ -209,6 +170,8 @@ import { Link, useForm, usePage } from "@inertiajs/vue3";
 import PostVote from "@/Components/PostVote.vue";
 import PostList from "@/Components/PostList.vue";
 import { Inertia } from '@inertiajs/inertia';
+import QuillEditor from "@/Components/QuillEditor.vue";
+import 'quill/dist/quill.snow.css'; 
 
 const user = usePage().props.auth.user;
 

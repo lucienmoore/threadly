@@ -17,6 +17,7 @@ const props = defineProps ({
 
 const user = usePage().props.auth.user;
 const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}` : '/storage/avatars/user.svg');
+const avatarPreview = ref(avatarUrl.value); 
 
 const form = useForm({
     name: user.name,
@@ -26,6 +27,7 @@ const form = useForm({
 
 const handleFileChange = (event) => {
     form.avatar = event.target.files[0];
+    avatarPreview.value = URL.createObjectURL(form.avatar); 
 };
 
 const submit = () => {
@@ -40,6 +42,12 @@ const submit = () => {
         forceFormData: true,
         onSuccess: () => Inertia.reload(),
     });
+};
+
+const fileInputRef = ref(null); // Добавлено: ссылка на input файл
+
+const triggerFileInput = () => { // Добавлено: метод для открытия диалога выбора файла
+    fileInputRef.value.click();
 };
 
 </script>
@@ -58,21 +66,22 @@ const submit = () => {
             <div>
                 <InputLabel for="avatar" value="Аватар" />
 
-                <div class="w-40 h-40 flex items-center justify-center border border-gray-300 my-1">
-                    <img :src="avatarUrl" alt="" class="object-cover h-40 w-40">
+                <div @click="triggerFileInput" class="rounded w-40 h-40 flex items-center justify-center border border-gray-300 my-1 avatar-hover relative">
+                    <img :src="avatarPreview" alt="" class="rounded object-cover h-40 w-40">
+                    <div class="overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100">
+                        <span class="text-white text-sm">Обновить аватар</span>
+                    </div>
                 </div>
 
-                <div class="mt-4">
-                    <input
+                <input
+                    ref="fileInputRef"
                     id="avatar"
                     type="file"
                     @change="handleFileChange"
                     accept="image/*"
-                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-lg border border-gray-300 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:cursor-pointer file:active:bg-custom-orange-hover file:mr-4 file:py-2 file:px-4 file:rounded-r-lg file:border-0 file:font-medium file:bg-custom-orange file:text-white"
-                    />
-                    <InputError class="mt-2" :message="form.errors.avatar" />
-                </div>
-
+                    class="hidden" 
+                />
+                <InputError class="mt-2" :message="form.errors.avatar" />
             </div>
             
             <div>
@@ -143,3 +152,16 @@ const submit = () => {
         </form>
     </section>
 </template>
+
+<style>
+.avatar-hover:hover {
+    cursor: pointer;
+}
+.avatar-hover .overlay {
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+.avatar-hover:hover .overlay {
+    opacity: 1;
+}
+</style>

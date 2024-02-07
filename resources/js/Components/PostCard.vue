@@ -40,8 +40,7 @@
         >
           {{ post.title }}
       </h5>
-      <p class="mb-3 ml-2 text-sm font-normal text-gray-700 dark:text-gray-400">
-        {{ post.description }}
+      <p class="mb-3 ml-2 pr-4 text-sm font-normal text-gray-700 dark:text-gray-400" v-html="post.description">
       </p>
       <div class="flex text-xs mb-3">
         <p class="mr-4 pl-2 flex gap-1.5 text-custom-gray font-bold">

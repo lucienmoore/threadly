@@ -21,6 +21,9 @@ defineProps({
           :community="post.community_slug"
           :key="post.id"
         />
+        <div class="mt-4 p-2">
+          <Pagination v-if="posts.meta.links.length > 3" :links="posts.meta.links" />
+        </div>
       </div>
       <div class="w-full md:w-4/12 pt-4">
         <CommunityList :communities="communities.data">

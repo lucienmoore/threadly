@@ -20,14 +20,7 @@
             </div>
 
             <div class="mt-4">
-              <Label for="description" value="Описание" />
-              <Input
-                id="description"
-                type="text"
-                class="mt-1 block w-full"
-                v-model="form.description"
-                autocomplete="description"
-              />
+              <QuillEditor v-model="form.description" />
               <InputError :message="errors.description" />
             </div>
 
@@ -54,6 +47,8 @@ import Input from "@/Components/Input.vue";
 import InputError from "@/Components/InputError.vue";
 import Label from "@/Components/Label.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import QuillEditor from "@/Components/QuillEditor.vue";
+import 'quill/dist/quill.snow.css'; 
 
 const props = defineProps({
   post: Object,

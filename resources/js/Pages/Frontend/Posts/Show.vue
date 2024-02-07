@@ -210,6 +210,7 @@ import PostVote from "@/Components/PostVote.vue";
 import PostList from "@/Components/PostList.vue";
 import { Inertia } from '@inertiajs/inertia';
 
+
 const user = usePage().props.auth.user;
 
 const isMenuOpen = ref(false);

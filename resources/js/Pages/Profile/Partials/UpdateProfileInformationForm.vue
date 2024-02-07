@@ -1,12 +1,12 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
-defineProps({
+const props = defineProps ({
     mustVerifyEmail: {
         type: Boolean,
     },
@@ -27,6 +27,21 @@ const form = useForm({
 const handleFileChange = (event) => {
     form.avatar = event.target.files[0];
 };
+
+const submit = () => {
+    const formData = new FormData();
+
+    formData.append('avatar', form.avatar);
+    formData.append('name', form.name);
+    formData.append('email', form.email);
+
+    form.post(route('profile.update'), {
+        data: formData,
+        forceFormData: true,
+        onSuccess: () => Inertia.reload(),
+    });
+};
+
 </script>
 
 <template>
@@ -39,25 +54,22 @@ const handleFileChange = (event) => {
             </p>
         </header>
 
-        <form @submit.prevent="form.put(route('profile.update'))" enctype="multipart/form-data" class="mt-6 space-y-6" novalidate>
+        <form @submit.prevent="submit" enctype="multipart/form-data" class="mt-6 space-y-6" novalidate>
             <div>
                 <InputLabel for="avatar" value="Аватар" />
 
-                <div class="w-20 h-20 flex items-center justify-center border border-gray-300 my-1">
-                    <img :src="avatarUrl" alt="" class="object-cover h-20 w-20">
+                <div class="w-40 h-40 flex items-center justify-center border border-gray-300 my-1">
+                    <img :src="avatarUrl" alt="" class="object-cover h-40 w-40">
                 </div>
 
                 <div class="mt-4">
                     <input
                     id="avatar"
                     type="file"
-                    @click="handleFileChange"
+                    @change="handleFileChange"
                     accept="image/*"
                     class="block w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-lg border border-gray-300 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:cursor-pointer file:active:bg-custom-orange-hover file:mr-4 file:py-2 file:px-4 file:rounded-r-lg file:border-0 file:font-medium file:bg-custom-orange file:text-white"
                     />
-                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-                    {{ form.progress.percentage }}%
-                    </progress>
                     <InputError class="mt-2" :message="form.errors.avatar" />
                 </div>
 

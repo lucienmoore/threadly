@@ -2,18 +2,12 @@
   <Head title="Create Community" />
 
   <AuthenticatedLayout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Создать тред в сообществе {{ community.name }}
-      </h2>
-    </template>
-
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="max-w-md mx-auto bg-white m-2 p-6">
           <form @submit.prevent="submit">
             <div>
-              <Label for="title" value="Title" />
+              <Label for="title" value="Наименование" />
               <Input
                 id="title"
                 type="text"
@@ -26,7 +20,7 @@
             </div>
 
             <div class="mt-4">
-              <Label for="description" value="Description" />
+              <Label for="description" value="Описание" />
               <Input
                 id="description"
                 type="text"
@@ -43,7 +37,7 @@
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
               >
-                Store
+                Создать
               </Button>
             </div>
           </form>

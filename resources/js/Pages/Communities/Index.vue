@@ -26,7 +26,7 @@
                   sm:w-auto
                   transition ease-in-out duration-150
                 "
-                >Добавить сообщество</Link
+                >Создать сообщество</Link
               >
             </div>
           </div>

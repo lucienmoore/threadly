@@ -7,7 +7,7 @@
         <div class="max-w-md mx-auto bg-white m-2 p-6">
           <form @submit.prevent="submit">
             <div>
-              <Label for="name" value="Name" />
+              <Label for="name" value="Название" />
               <Input
                 id="name"
                 type="text"
@@ -20,7 +20,7 @@
             </div>
 
             <div class="mt-4">
-              <Label for="description" value="Description" />
+              <Label for="description" value="Описание" />
               <Input
                 id="description"
                 type="text"
@@ -37,7 +37,7 @@
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
               >
-                Update
+                Обновить
               </Button>
             </div>
           </form>

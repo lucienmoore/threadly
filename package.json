@@ -22,6 +22,8 @@
         "@inertiajs/inertia": "^0.11.1",
         "date-fns": "^3.3.1",
         "flowbite": "^2.2.1",
-        "sweetalert2": "^11.10.4"
+        "sass": "^1.70.0",
+        "sweetalert2": "^11.10.4",
+        "vue-clipboard2": "^0.3.3"
     }
 }

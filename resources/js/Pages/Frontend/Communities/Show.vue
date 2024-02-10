@@ -1,8 +1,8 @@
 <template>
   <guest-layout>
-    <section class="flex flex-col md:flex-row">
+    <section class="flex flex-col md:flex-row gap-4">
       <div class="w-full md:w-8/12 mt-5">
-        <div class="p-4 mb-3 bg-white rounded-lg">
+        <div class="p-4 mb-3 bg-white sm:rounded-lg hidden md:block">
           <h2 class="font-semibold text-2xl text-black">
             <Link :href="route('frontend.communities.show', community.slug)">
               t/{{ community.name }}
@@ -19,12 +19,12 @@
             :community="community.slug"
             :key="post.id"
           />
-          <div class="mt-4 p-2">
+          <div class="mt-4">
             <Pagination v-if="posts.meta.links.length > 3" :links="posts.meta.links" />
           </div>
         </div>
       </div>
-      <div class="w-full md:w-4/12 pt-4 p-4">
+      <div class="w-full md:w-4/12 mt-5 order-first md:order-last">
         <div>
           <h2
             class="
@@ -32,7 +32,7 @@
               text-lg
               p-4
               bg-custom-blue
-              rounded-t-lg
+              sm:rounded-t-lg
               text-white
             "
           >

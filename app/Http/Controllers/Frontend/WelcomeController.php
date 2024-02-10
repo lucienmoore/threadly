@@ -14,11 +14,9 @@ class WelcomeController extends Controller
 {
     public function welcome()
     {
-        $perPage = 4; 
-
         $posts = CommunityPostResource::collection(Post::with(['user', 'community', 'postVotes' => function ($query) {
             $query->where('user_id', auth()->id());
-        }])->withCount('comments')->orderBy('votes', 'desc')->paginate($perPage));
+        }])->withCount('comments')->orderBy('votes', 'desc')->paginate(12));
 
         $communities = CommunityResource::collection(Community::withCount('posts')->orderBy('posts_count', 'desc')->take(6)->get());
 

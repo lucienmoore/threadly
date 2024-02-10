@@ -23,6 +23,7 @@ class CommunityPostController extends Controller
             'user_id' => auth()->id(),
             'title' => $request->title,
             'description' => $request->description,
+            'image' => $request->image,
         ]);
 
         return Redirect::route('frontend.communities.show', $community->slug);

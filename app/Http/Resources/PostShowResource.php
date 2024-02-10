@@ -19,6 +19,7 @@ class PostShowResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'image' => $this->image,
             'name' => $this->user->name,
             'slug' => $this->slug,
             'votes' => $this->votes,

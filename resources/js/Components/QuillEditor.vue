@@ -29,13 +29,33 @@ onMounted(() => {
     },
   });
 
+  if (props.modelValue) {
+    const delta = quill.clipboard.convert(props.modelValue);
+    quill.setContents(delta, 'silent');
+  }
+
   quill.on('text-change', () => {
-    emit('update:modelValue', quill.root.innerHTML);
+  let html = quill.root.innerHTML;
+
+  html = html
+    .replace(/^(\s*<br\s*\/?>|\s*<p><br\s*\/?><\/p>|\s*)+/g, '') // Удаляем в начале
+    .replace(/(\s*<br\s*\/?>|\s*<p><br\s*\/?><\/p>|\s*)+$/g, ''); // Удаляем в конце
+
+  const text = quill.getText();
+  const isTextEmpty = !text.trim();
+
+  if (isTextEmpty) {
+    emit('update:modelValue', '');
+    return;
+  }
+
+  emit('update:modelValue', html);
   });
 
-  watch(() => props.modelValue, (newValue) => {
-    if (quill && newValue !== quill.root.innerHTML) {
-      quill.root.innerHTML = newValue;
+  watch(() => props.modelValue, (newValue, oldValue) => {
+    if (!quill.hasFocus() && newValue !== oldValue) {
+      const delta = quill.clipboard.convert(newValue);
+      quill.setContents(delta, 'silent');
     }
   });
 });

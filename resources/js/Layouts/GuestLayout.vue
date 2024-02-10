@@ -100,7 +100,7 @@ const showingNavigationDropdown = ref(false);
               <template v-else>
                 <Link
                   :href="route('login')"
-                  class="text-sm text-gray-700 underline"
+                  class="text-sm text-white font-medium bg-custom-login-button py-3 px-4 rounded-full hover:bg-custom-login-button-hover active:bg-custom-login-button-active"
                 >
                   Войти
                 </Link>
@@ -222,7 +222,7 @@ const showingNavigationDropdown = ref(false);
       </header>
 
       <!-- Page Content -->
-      <main class="max-w-5xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
+      <main class="max-w-6xl mx-auto mt-6 sm:px-6 lg:px-8 pb-4">
         <slot />
       </main>
     </div>

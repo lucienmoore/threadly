@@ -3,7 +3,7 @@
 
   <AuthenticatedLayout>
     <div class="py-12">
-      <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="flex justify-end">
             <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -123,7 +123,7 @@
                           scope="col"
                           class="relative py-3.5 pl-3 pr-4 sm:pr-6"
                         >
-                          <span class="sr-only">Edit</span>
+                          <span class="sr-only">Редактировать</span>
                         </th>
                       </tr>
                     </thead>
@@ -261,7 +261,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, usePage } from "@inertiajs/vue3";
 import Pagination from "../../Components/Pagination.vue";
 import { Inertia } from '@inertiajs/inertia';
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 
 const debounce = (fn, delay = 600) => {
   let timeoutId;
@@ -272,6 +272,29 @@ const debounce = (fn, delay = 600) => {
     }, delay);
   };
 };
+
+const saveScrollPosition = () => {
+  const scrollPosition = window.scrollY;
+  localStorage.setItem('scrollPosition', scrollPosition.toString());
+};
+
+const restoreScrollPosition = () => {
+  const savedPosition = localStorage.getItem('scrollPosition');
+  if (savedPosition) {
+    window.scrollTo(0, parseInt(savedPosition));
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('beforeunload', saveScrollPosition);
+  window.addEventListener('load', restoreScrollPosition);
+  restoreScrollPosition();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('beforeunload', saveScrollPosition);
+  window.removeEventListener('load', restoreScrollPosition);
+});
 
 const searchQuery = ref(localStorage.getItem('searchQuery') || '');
 

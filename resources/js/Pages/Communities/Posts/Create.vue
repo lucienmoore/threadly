@@ -59,6 +59,7 @@ const props = defineProps({
 const form = useForm({
   title: "",
   description: "",
+  image: null,
 });
 
 const submit = () => {

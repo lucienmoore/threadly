@@ -49,7 +49,7 @@
               <Link
               v-if="$page.props.auth.auth_check"
               :href="route('communities.posts.create', community.slug)"
-              class="px-4 py-2 w-full text-center rounded-full font-medium text-sm bg-custom-blue hover:bg-blue-500 text-white"
+              class="px-4 py-2 w-full text-center rounded-lg font-medium text-sm bg-custom-blue hover:bg-blue-600 focus:bg-blue-500 text-white"
               >Создать тред</Link>
             </div>
           </p>

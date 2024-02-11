@@ -5,7 +5,7 @@
       method="post"
       as="button"
       type="button"
-      class="text-gray-400 rounded py-1 flex justify-center"
+      class="text-gray-400 rounded py-1 px-1 flex justify-center"
       preserve-scroll
       ><svg 
         width="20" 

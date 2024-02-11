@@ -25,8 +25,15 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => ['required', 'min:5', 'max:30'],
-            'description' => ['nullable', 'min:10'],
+            'description' => ['nullable', 'max:1000'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png'],
+        ];
+    }
+
+    public function messages() : array
+    {
+        return [
+            'title.required' => 'Поле заголовок обязательно.',
         ];
     }
 }

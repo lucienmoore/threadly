@@ -14,7 +14,7 @@ defineProps({
 
 <template>
   <GuestLayout>
-    <section class="flex flex-col gap-4 md:flex-row">
+    <section class="flex flex-col gap-4 justify-center md:flex-row">
       <div class="w-full md:w-8/12 order-last md:order-first">
         <PostCard
           v-for="post in posts.data"
@@ -34,9 +34,3 @@ defineProps({
     </section>
   </GuestLayout>
 </template>
-
-<style>
-
-
-
-</style>

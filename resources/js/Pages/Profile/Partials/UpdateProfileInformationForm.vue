@@ -69,7 +69,7 @@ const triggerFileInput = () => { // Добавлено: метод для отк
                 <div @click="triggerFileInput" class="rounded w-40 h-40 flex items-center justify-center border border-gray-300 my-1 avatar-hover relative">
                     <img :src="avatarPreview" alt="" class="rounded object-cover h-40 w-40">
                     <div class="overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100">
-                        <span class="text-white text-sm">Обновить аватар</span>
+                        <span class="text-white text-sm font-bold">Обновить аватар</span>
                     </div>
                 </div>
 

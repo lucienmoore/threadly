@@ -11,10 +11,10 @@
         </div>
         <div class="flex mt-2 bg-white sm:rounded-lg text-xs text-gray-500">
           <div>
-            <PostVote :post="post.data" />
+            <PostVote class="bg-white -mr-2" :post="post.data" />
           </div>
           <div class="w-full">
-            <div class="flex gap-1 justify-between ml-2 mt-2 mr-2 p-2">
+            <div class="flex gap-1 justify-between ml-2 mt-1 mr-2 p-2">
               <div class="pb-2">
                 Опубликовано пользователем
                 <span class="text-gray-500">{{
@@ -58,9 +58,12 @@
               </div>
             </div>
             <div class="ml-2 pl-2 sm:-mt-5">
-              <h1 class="font-semibold text-2xl text-black max-w-md" v-bind:class="{'font-semibold text-2xl text-black': true, 'mt-0': !can_delete}">
+              <h1 class="font-semibold text-2xl text-custom-black max-w-md" v-bind:class="{'font-semibold text-2xl text-black': true, 'mt-0': !can_delete}">
                 {{ post.data.title }}
               </h1>
+              <div v-if="post.data.image" class="image-container flex justify-center">
+                <img :src="`/storage/${post.data.image}`" alt="Post Image" class="post-image max-h-96 mt-2 pr-4">
+              </div>
               <p class="text-slate-700 pr-4 text-base my-2 w-full" v-html="post.data.description"></p>
               <a
                 :href="post.data.url"
@@ -69,7 +72,7 @@
               >
             </div>
             <hr />
-            <div v-if="$page.props.auth.auth_check">
+            <div>
               <form class="m-2 p-2" @submit.prevent="submit">
                 <div class="mt-2 w-full break-all">
                   <label
@@ -93,7 +96,8 @@
                     px-4
                     py-2
                     bg-custom-blue
-                    hover:bg-blue-500
+                    hover:bg-blue-600
+                    focus:bg-blue-500
                     text-white
                     rounded-md
                     disabled:bg-blue-300
@@ -156,7 +160,8 @@
                               px-4
                               py-2
                               bg-custom-blue
-                              hover:bg-blue-500
+                              hover:bg-blue-600
+                              focus:bg-blue-500
                               text-xs
                               text-white
                               rounded-md
@@ -178,7 +183,7 @@
       </div>
       <div class="w-full md:w-4/12">
         <PostList :posts="posts.data" :community="community">
-          <template #title>Популярные треды</template>
+          <template #title>Лучшие треды в сообществе</template>
         </PostList>
       </div>
     </section>
@@ -194,10 +199,11 @@ import PostList from "@/Components/PostList.vue";
 import { Inertia } from '@inertiajs/inertia';
 import QuillEditor from "@/Components/QuillEditor.vue";
 import 'quill/dist/quill.snow.css'; 
+import Toastify from 'toastify-js'
+import 'toastify-js/src/toastify.css'
 
 const user = usePage().props.auth.user;
 
-const isMenuOpen = ref(false);
 const scrollPosition = ref(0); 
 
 const props = defineProps({
@@ -267,10 +273,23 @@ const sharePost = () => {
   const postLink = route('frontend.communities.posts.show', [props.community.slug, props.post.data.slug]);
 
   navigator.clipboard.writeText(postLink).then(() => {
-    alert('Ссылка скопирована в буфер обмена!');
+    Toastify({
+      text: "Ссылка скопирована!",
+      className: "toastify-left-border",
+      position: "center",
+      gravity: "bottom", 
+      duration: 5000
+    }).showToast();
   }).catch(err => {
     console.error('Ошибка при копировании: ', err);
-    alert('Не удалось скопировать ссылку');
+    Toastify({
+      text: "Не удалось скопировать ссылку",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      className: "error",
+      position: "center",
+      gravity: "bottom", 
+      duration: 3000
+    }).showToast();
   });
 };
 </script>
@@ -315,4 +334,21 @@ const sharePost = () => {
   position: relative; 
   padding-left: 20px; 
 }
+
+.post-image {
+  margin-bottom: 0.5rem;
+  max-height: 32rem;
+}
+
+.toastify-left-border {
+  border-left: 4px solid #24A0ED; 
+  background: white;
+  color: black; 
+  padding-left: 20px; 
+  padding-right: 20px; 
+  font-size: 16px; 
+  border-radius: 4px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
 </style>

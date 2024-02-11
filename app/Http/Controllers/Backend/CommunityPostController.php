@@ -7,8 +7,10 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Community;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class CommunityPostController extends Controller
 {
@@ -19,12 +21,24 @@ class CommunityPostController extends Controller
 
     public function store(StorePostRequest $request, Community $community)
     {
-        $community->posts()->create([
+        $post = $community->posts()->create([
             'user_id' => auth()->id(),
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $request->image,
+            // Не устанавливаем изображение сразу, так как его нужно сначала загрузить и оптимизировать
         ]);
+
+        if ($request->hasFile('image')) {
+            $filename = $post->id . '.jpg'; 
+            $imagePath = $request->file('image')->storeAs('posts', $filename, 'public');
+    
+            $path = storage_path('app/public/' . $imagePath);
+            if (filesize($path) > 10) { 
+                ImageOptimizer::optimize($path);
+            }
+    
+            $post->update(['image' => $imagePath]);
+        }
 
         return Redirect::route('frontend.communities.show', $community->slug);
     }

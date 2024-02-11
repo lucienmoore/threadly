@@ -5,7 +5,7 @@
     <UpVoteLink
       :slug="post.slug"
       :class="{
-        'text-custom-orange upvote_svg': post.postVotes[0] && post.postVotes[0].vote == 1,
+        'upvote_svg': post.postVotes[0] && post.postVotes[0].vote == 1,
       }"
     />
     <div
@@ -20,7 +20,7 @@
     <DownVoteLink
       :slug="post.slug"
       :class="{
-        'text-blue-600 downvote_svg-hover': post.postVotes[0] && post.postVotes[0].vote == -1,
+        'downvote_svg': post.postVotes[0] && post.postVotes[0].vote == -1,
       }"
     />
   </div>
@@ -42,7 +42,7 @@ defineProps({
   stroke: #FF684D;
 }
 
-.downvote_svg-hover path {
+.downvote_svg path {
   fill: #7193FF;
   stroke: #7193FF;
 }

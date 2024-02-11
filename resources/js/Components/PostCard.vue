@@ -14,10 +14,10 @@
     "
     @click="goToPost"
   >
-    <div @click.stop class="flex">
+    <div @click.stop>
       <PostVote :post="post" />
     </div>
-    <div class="ml-1">
+    <div class="grow">
       <div class="flex flex-wrap m-2 pt-1 text-xs">
         <Link
           :href="route('frontend.communities.show', community)"
@@ -30,7 +30,8 @@
           {{ post.created_at }}
         </div>
       </div>
-      <h5
+      <div>
+        <h5
           class="
             mb-2
             ml-2
@@ -42,9 +43,14 @@
           "
         >
           {{ post.title }}
-      </h5>
-      <p class="mb-3 ml-2 pr-4 text-sm font-normal text-gray-700 dark:text-gray-400" v-html="post.description">
-      </p>
+        </h5>
+      </div>
+      <div v-if="!post.image">
+        <p class="mb-3 ml-2 pr-4 text-sm font-normal text-gray-700 dark:text-gray-400" v-html="post.description"></p>
+      </div>
+      <div v-else class="image-container flex justify-center">
+        <img :src="`/storage/${post.image}`" alt="Post Image" class="post-image">
+      </div>
       <div class="flex text-xs mb-2">
         <p class="mr-4 pl-2 flex gap-1.5 text-custom-gray font-bold px-2 py-2 items-center">
           <div>
@@ -72,6 +78,8 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import PostVote from "./PostVote.vue";
+import Toastify from 'toastify-js'
+import 'toastify-js/src/toastify.css'
 
 const props = defineProps({
   post: Object,
@@ -90,17 +98,46 @@ const goToCommunity = () => {
 
 const sharePost = () => {
   const postLink = route('frontend.communities.posts.show', [props.community, props.post.slug]);
-  navigator.clipboard.writeText(postLink)
-    .then(() => {
-      alert('Ссылка скопирована в буфер обмена!');
-    })
-    .catch(err => {
-      console.error('Ошибка при копировании ссылки: ', err);
-    });
+  
+  navigator.clipboard.writeText(postLink).then(() => {
+    Toastify({
+      text: "Ссылка скопирована!",
+      className: "toastify-left-border",
+      position: "center",
+      gravity: "bottom", 
+      duration: 5000
+    }).showToast();
+  }).catch(err => {
+    console.error('Ошибка при копировании: ', err);
+    Toastify({
+      text: "Не удалось скопировать ссылку",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      className: "error",
+      position: "center",
+      gravity: "bottom", 
+      duration: 3000
+    }).showToast();
+  });
 };
 </script>
 
 <style>
+
+.post-image {
+  margin-bottom: 0.5rem;
+  max-height: 30rem;
+}
+
+.toastify-left-border {
+  border-left: 4px solid #24A0ED; 
+  background: white;
+  color: black; 
+  padding-left: 20px; 
+  padding-right: 20px; 
+  font-size: 16px; 
+  border-radius: 4px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
 
 @media (min-width: 462px) { 
   .posted-dot {

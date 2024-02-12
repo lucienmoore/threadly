@@ -11,7 +11,7 @@ import { computed } from 'vue';
 const showingNavigationDropdown = ref(false);
 
 const user = usePage().props.auth.user;
-const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}` : '/storage/avatars/user.svg');
+const avatarUrl = computed(() => user.avatar ? `/storage/${user.avatar}?${new Date().getTime()}` : '/storage/avatars/user.svg'); 
 </script>
 
 <template>

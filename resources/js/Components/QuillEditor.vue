@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor" class="quill-editor"></div>
+  <div id="quillEditor" ref="editor" class="quill-editor"></div>
 </template>
 
 <script setup>
@@ -29,6 +29,8 @@ onMounted(() => {
     },
   });
 
+  quill.root.dataset.placeholder = 'Введите текст';
+
   if (props.modelValue) {
     const delta = quill.clipboard.convert(props.modelValue);
     quill.setContents(delta, 'silent');
@@ -38,8 +40,8 @@ onMounted(() => {
   let html = quill.root.innerHTML;
 
   html = html
-    .replace(/^(\s*<br\s*\/?>|\s*<p><br\s*\/?><\/p>|\s*)+/g, '') // Удаляем в начале
-    .replace(/(\s*<br\s*\/?>|\s*<p><br\s*\/?><\/p>|\s*)+$/g, ''); // Удаляем в конце
+    .replace(/^(\s*<br\s*\/?>|\s*<p><br\s*\/?><\/p>|\s*)+/g, '') 
+    .replace(/(\s*<br\s*\/?>|\s*<p><br\s*\/?><\/p>|\s*)+$/g, ''); 
 
   const text = quill.getText();
   const isTextEmpty = !text.trim();
@@ -60,3 +62,15 @@ onMounted(() => {
   });
 });
 </script>
+
+<style>
+.ql-editor {
+  font-size: 14px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#quillEditor .ql-editor.ql-blank::before {
+  font-style: normal; 
+  color: #6B7280
+}
+</style>

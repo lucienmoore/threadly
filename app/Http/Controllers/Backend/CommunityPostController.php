@@ -52,10 +52,41 @@ class CommunityPostController extends Controller
     public function update(StorePostRequest $request, Community $community, Post $post)
     {
         $this->authorize('update', $post);
-        $post->update($request->validated());
+    
+        $data = $request->validated();
+        unset($data['image']); // Удаляем изображение из массива данных, чтобы не обновлять его напрямую
+    
+        // Проверяем, было ли запрошено удаление изображения
+        if ($request->filled('delete_image') && $request->input('delete_image') == true) {
+            if ($post->image) {
+                Storage::delete('public/' . $post->image);
+                $data['image'] = null; // Обнуляем путь к изображению в базе данных
+            }
 
+        } elseif ($request->hasFile('image')) {
+            // Удаляем старое изображение, если оно есть
+            if ($post->image) {
+                Storage::delete('public/' . $post->image);
+            }
+    
+            // Загружаем и сохраняем новое изображение
+            $filename = $post->id . '.jpg';
+            $imagePath = $request->file('image')->storeAs('posts', $filename, 'public');
+    
+            $path = storage_path('app/public/' . $imagePath);
+            if (filesize($path) > 10) {
+                ImageOptimizer::optimize($path);
+            }
+    
+            $data['image'] = $imagePath;
+        }
+    
+        $post->update($data);
+    
         return Redirect::route('frontend.communities.posts.show', [$community->slug, $post->slug]);
     }
+    
+    
 
     public function destroy(Community $community, Post $post)
     {

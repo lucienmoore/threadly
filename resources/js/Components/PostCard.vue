@@ -49,7 +49,7 @@
         <p class="mb-3 ml-2 pr-4 text-sm font-normal text-gray-700 dark:text-gray-400" v-html="post.description"></p>
       </div>
       <div v-else class="image-container flex justify-center">
-        <img :src="`/storage/${post.image}`" alt="Post Image" class="post-image">
+        <img :src="`/storage/${post.image}?${new Date().getTime()}`" alt="Post Image" class="post-image">
       </div>
       <div class="flex text-xs mb-2">
         <p class="mr-4 pl-2 flex gap-1.5 text-custom-gray font-bold px-2 py-2 items-center">

@@ -5,6 +5,7 @@
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="max-w-md mx-auto bg-white m-2 p-6">
+          <h1 class="text-xl font-bold text-center mb-6 py-2 rounded-md bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-md">Редактирование сообщества</h1>
           <form @submit.prevent="submit">
             <div>
               <Label for="name" value="Название" />
@@ -20,14 +21,14 @@
             </div>
 
             <div class="mt-4">
-              <Label for="description" value="Описание" />
-              <Input
+              <textarea
                 id="description"
-                type="text"
-                class="mt-1 block w-full"
+                class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                rows="3"
                 v-model="form.description"
                 autocomplete="description"
-              />
+                placeholder="Описание"
+              ></textarea>
               <InputError :message="errors.description" />
             </div>
 

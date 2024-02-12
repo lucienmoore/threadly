@@ -31,7 +31,9 @@
               font-semibold
               text-lg
               p-4
-              bg-custom-blue
+              bg-gradient-to-r
+              from-blue-500
+              to-purple-600
               sm:rounded-t-lg
               text-white
             "

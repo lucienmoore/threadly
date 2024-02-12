@@ -62,7 +62,7 @@
                 {{ post.data.title }}
               </h1>
               <div v-if="post.data.image" class="image-container flex justify-center">
-                <img :src="`/storage/${post.data.image}`" alt="Post Image" class="post-image max-h-96 mt-2 pr-4">
+                <img :src="`/storage/${post.data.image}?${new Date().getTime()}`" alt="Post Image" class="post-image max-h-96 mt-2 pr-4">
               </div>
               <p class="text-slate-700 pr-4 text-base my-2 w-full" v-html="post.data.description"></p>
               <a

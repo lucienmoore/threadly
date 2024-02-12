@@ -37,7 +37,8 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     
         Route::resource('/communities', CommunityController::class);
         Route::resource('/communities.posts', CommunityPostController::class);
-    
+        Route::post('/communities/{community}/posts/{post}', [CommunityPostController::class, 'update'])->name('communities.posts.update');
+
         Route::post('/posts/{post:slug}/upVote', [PostVoteController::class, 'upVote'])->name('posts.upVote');
         Route::post('/posts/{post:slug}/downVote', [PostVoteController::class, 'downVote'])->name('posts.downVote');
 

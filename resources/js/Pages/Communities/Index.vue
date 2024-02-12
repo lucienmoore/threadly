@@ -22,9 +22,9 @@
                   font-medium
                   text-white
                   shadow-sm
-                  hover:bg-blue-500
+                  hover:bg-blue-600
+                  active:bg-blue-500
                   sm:w-auto
-                  transition ease-in-out duration-150
                 "
                 >Создать сообщество</Link
               >

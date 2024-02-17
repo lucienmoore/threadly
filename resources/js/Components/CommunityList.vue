@@ -1,6 +1,6 @@
 <template>
   <div class="w-full bg-white shadow-md border sm:rounded-lg">
-    <h2 class="font-semibold text-lg p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white sm:rounded-t-lg">
+    <h2 class="font-semibold text-lg p-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white sm:rounded-t-lg">
       <slot name="title" />
     </h2>
     <ul role="list" class="divide-y divide-slate-300 dark:divide-slate-700 px-4 py-2">
@@ -18,7 +18,7 @@
               font-semibold
               truncate
               text-sm
-              hover:text-indigo-700
+              hover:text-orange-600
             "
           >
             {{ community.name }}

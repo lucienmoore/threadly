@@ -19,8 +19,8 @@ export default {
             colors: {
                 'custom-orange': '#FF684D',
                 'custom-blue' : '#0079D3',
-                'custom-orange-hover': '#E65E44',
-                'custom-orange-active': '#CA5742',
+                'custom-orange-hover': '#F97F27',
+                'custom-orange-active': '#F98E42',
                 'custom-login-button' : '#D93A00',
                 'custom-login-button-hover' : '#962900',
                 'custom-login-button-active' : '#7D2200',
@@ -29,6 +29,7 @@ export default {
                 'custom-bg' : '#DAE0E6',
                 'custom-bg-vote' : '#F8F9FA',
                 'custom-blue-arrow' : '#7193FF',
+                'custom-blue-links' : '#24A0ED',
                 'custom-button' : '#1B4EF7',
                 'custom-card-hover' : '#898989',
                 'custom-pagination-bg' : '#D6D8DC',

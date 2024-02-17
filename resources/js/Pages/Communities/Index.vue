@@ -15,15 +15,15 @@
                   justify-center
                   rounded-md
                   border border-transparent
-                  bg-custom-blue
                   px-4
                   py-2
                   text-sm
                   font-medium
                   text-white
                   shadow-sm
-                  hover:bg-blue-600
-                  active:bg-blue-500
+                  bg-orange-500
+                  hover:bg-custom-orange-hover
+                  focus:bg-custom-orange-active
                   sm:w-auto
                 "
                 >Создать сообщество</Link

@@ -32,8 +32,8 @@
               text-lg
               p-4
               bg-gradient-to-r
-              from-blue-500
-              to-purple-600
+              from-orange-500 
+              to-orange-600
               sm:rounded-t-lg
               text-white
             "
@@ -51,7 +51,7 @@
               <Link
               v-if="$page.props.auth.auth_check"
               :href="route('communities.posts.create', community.slug)"
-              class="px-4 py-2 w-full text-center rounded-lg font-medium text-sm bg-custom-blue hover:bg-blue-600 focus:bg-blue-500 text-white"
+              class="px-4 py-2 w-full text-center rounded-lg font-medium text-sm bg-orange-500 hover:bg-custom-orange-hover focus:bg-custom-orange-active text-white"
               >Создать тред</Link>
             </div>
           </p>

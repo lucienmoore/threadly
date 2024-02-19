@@ -37,7 +37,7 @@
               @input="fetchCommunities"
               type="text"
               placeholder="Поиск по названию..."
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-100 focus:ring-opacity-50"
             />
           </div>
           <div class="mt-4 flex flex-col">
@@ -61,12 +61,6 @@
                   "
                 >
                   <table class="min-w-full divide-y divide-gray-300">
-                    <!-- <div>
-                      <select v-model="sortKey" @change="fetchSortedCommunities">
-                        <option value="name">Название</option>
-                        <option value="created_at">Дата создания</option>
-                      </select>
-                    </div> -->
                     <thead class="bg-white">
                       <tr>
                         <th
@@ -330,15 +324,15 @@ const user = usePage().props.auth.user;
 
 <style>
 .delete-svg-icon {
-  fill: black; 
+  fill: black;
 }
 
 .link-hover:hover .delete-svg-icon {
-  fill: red; 
+  fill: red;
 }
 
 .edit-svg-icon {
-  fill: black; 
+  fill: black;
 }
 
 .link-hover:hover .edit-svg-icon {

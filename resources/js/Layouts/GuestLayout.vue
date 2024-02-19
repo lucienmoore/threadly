@@ -100,7 +100,7 @@ const showingNavigationDropdown = ref(false);
               <template v-else>
                 <Link
                   :href="route('login')"
-                  class="text-sm text-white font-medium bg-custom-login-button py-3 px-4 rounded-full hover:bg-custom-login-button-hover active:bg-custom-login-button-active"
+                  class="text-sm text-white font-medium bg-custom-login-button py-2 px-3 rounded-lg hover:bg-custom-login-button-hover active:bg-custom-login-button-active"
                 >
                   Войти
                 </Link>

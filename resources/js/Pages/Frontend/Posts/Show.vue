@@ -146,7 +146,7 @@
                   <div class="text-slate-600 flex text-sm ml-2 mt-2 sm:mt-0 sm:p-2 flex sm:gap-5">
                     <div>
                     </div>
-                    <div class="break-all w-full flex flex-col gap-2">
+                    <div class="w-full flex flex-col gap-2">
                       <div v-html="comment.content" class="comment-text"></div>
                         <div class="w-full" v-if="editingComment && editingComment.id === comment.id">
                           <div class="h-30 mb-15">

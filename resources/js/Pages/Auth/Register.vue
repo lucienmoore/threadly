@@ -36,7 +36,7 @@ const handleFileChange = (event) => {
     <GuestLayout>
         <Head title="Регистрация" />
         <div>
-            <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
+            <form class="mx-auto max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-6 mb-4" @submit.prevent="submit" novalidate>
                 <div>
                     <InputLabel for="name" value="Имя" />
 
@@ -103,7 +103,7 @@ const handleFileChange = (event) => {
                     type="file"
                     @change="handleFileChange"
                     accept="image/*"
-                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-lg border border-gray-300 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:cursor-pointer file:active:bg-custom-orange-hover file:mr-4 file:py-2 file:px-4 file:rounded-r-lg file:border-0 file:font-medium file:bg-custom-orange file:text-white"
+                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-lg border border-gray-300 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:cursor-pointer file:active:bg-custom-orange-hover file:mr-4 file:py-2 file:px-4 file:rounded-r-lg file:border-0 file:font-medium file:bg-orange-500 file:text-white"
                     />
                     <InputError class="mt-2" :message="form.errors.avatar" />
                 </div>

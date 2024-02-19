@@ -36,7 +36,7 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
+        <form class="mx-auto max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-6 mb-4" @submit.prevent="submit" novalidate>
             <div>
                 <InputLabel for="email" value="Электронная почта" />
 

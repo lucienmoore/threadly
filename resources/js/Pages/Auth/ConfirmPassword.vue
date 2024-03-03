@@ -19,7 +19,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Confirm Password" />
+        <Head title="Подтверждение пароля" />
 
         <div class="mb-4 text-sm text-gray-600">
             Это защищенная область приложения. Пожалуйста, введите пароль, чтобы продолжить.

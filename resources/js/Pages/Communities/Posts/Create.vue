@@ -8,7 +8,7 @@
           <h1 class="text-xl font-bold text-center mb-6 py-2 rounded-md bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-md">Создание треда</h1>
           <form @submit.prevent="submit">
             <div>
-              <Input
+              <TextInput
                 id="title"
                 type="text"
                 class="mt-1 block w-full"
@@ -80,6 +80,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Button from "@/Components/Button.vue";
 import Input from "@/Components/Input.vue";
 import InputError from "@/Components/InputError.vue";
+import TextInput from "@/Components/TextInput.vue";
 import Label from "@/Components/Label.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import QuillEditor from "@/Components/QuillEditor.vue";

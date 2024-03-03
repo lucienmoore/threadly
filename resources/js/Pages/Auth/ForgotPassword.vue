@@ -23,7 +23,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="Забыли пароль?" />
 
         <div class="mb-4 mt-3 text-sm text-gray-600 mx-auto max-w-lg">
             Забыли пароль? Напишите адрес электронной почты, и мы пришлём вам ссылку для сброса пароля.

@@ -9,7 +9,7 @@
       }"
     />
     <div
-      class="font-bold text-sm"
+      class="font-medium text-sm"
       :class="{
         'text-custom-orange': post.postVotes[0] && post.postVotes[0].vote == 1,
         'text-custom-blue-arrow': post.postVotes[0] && post.postVotes[0].vote == -1,

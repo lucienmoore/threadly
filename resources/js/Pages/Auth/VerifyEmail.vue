@@ -21,7 +21,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 
 <template>
     <GuestLayout>
-        <Head title="Email Verification" />
+        <Head title="Подтверждение почты" />
         <div class="flex flex-col bg-white rounded p-4 w-1/2 mx-auto text-center">
             <div class="mb-4 mt-3 text-sm text-gray-600 mx-auto max-w-lg">
                 Благодарим за регистрацию! Прежде чем приступить к работе, подтвердите адрес электронной почты, перейдя по ссылке, которую мы только что отправили. Если письмо не пришло, нажмите на кнопку для повторной отправки.

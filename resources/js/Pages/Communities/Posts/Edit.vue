@@ -79,7 +79,7 @@
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
               >
-                Создать
+                Обновить
               </Button>
             </div>
           </form>
@@ -129,6 +129,7 @@ const removeImage = () => {
   form.image = null;
   previewImage.value = null;
   props.post.image = null;
+  form.delete_image = true;
   imageToRemove.value = true; 
 };
 
@@ -156,7 +157,6 @@ const submit = () => {
     formData.append('delete_image', 'true');
   }
 
-  // Добавляем новое изображение, если оно выбрано
   if (form.image) {
     formData.append('image', form.image);
   }
@@ -164,9 +164,8 @@ const submit = () => {
   form.post(route("communities.posts.update", [props.community.slug, props.post.slug]), {
     data: formData,
     onSuccess: () => {
-      // Можно добавить действия после успешного обновления, например, очистку превью
       previewImage.value = null;
-      imageToRemove.value = false; // Сбросить флаг удаления изображения
+      imageToRemove.value = false; 
     },
     onError: (error) => {
       console.error("Ошибка при обновлении поста", error);

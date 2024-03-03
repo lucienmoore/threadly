@@ -9,7 +9,7 @@
           <h1 class="text-xl font-bold text-center mb-6 py-2 rounded-md bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-md">Создание сообщества</h1>
           <form @submit.prevent="submit">
             <div>
-              <Input
+              <TextInput
                 id="name"
                 type="text"
                 class="mt-1 block w-full"
@@ -24,7 +24,7 @@
             <div class="mt-4">
               <textarea
                 id="description"
-                class="mt-1 block w-full border-gray-300 focus:border-gray-500 focus:ring focus:ring-gray-500 focus:ring-opacity-0 rounded-md shadow-sm"
+                class="mt-1 block w-full border-gray-300 focus:border-custom-input-focus focus:ring-custom-input-focus rounded-md shadow-sm"
                 rows="3"
                 v-model="form.description"
                 autocomplete="description"
@@ -54,6 +54,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Button from "@/Components/Button.vue";
 import Input from "@/Components/Input.vue";
 import InputError from "@/Components/InputError.vue";
+import TextInput from "@/Components/TextInput.vue";
 import Label from "@/Components/Label.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 

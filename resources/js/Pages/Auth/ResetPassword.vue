@@ -33,7 +33,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Reset Password" />
+        <Head title="Восстановление пароля" />
 
         <form class="mx-auto max-w-lg" @submit.prevent="submit" novalidate>
             <div>
